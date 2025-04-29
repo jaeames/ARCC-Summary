@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ARCC Summary</title>
+
+<!-- ===================== -->
+<!--  CSS STYLES START  -->
+<!-- ===================== -->
+
+  <style>
+/* Filters */
+    .filter-checkbox {
+        display: inline-block;
+        padding: 0.2em 0.4em;
+        margin: 0.15em;
+        border: none;
+        font-size: 0.95em;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .filter-include {
+        font-weight: bold;
+        color: green;
+    }
+
+    .filter-exclude {
+        font-weight: bold;
+        color: red;
+        text-decoration: line-through;
+    }
+
+/* Positioning the columns of text */
+    .adjustment-box {
+        margin-bottom: 1em;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .filters-side {
+        flex: 0 0 300px;
+    }
+
+    #custom-support-container {
+        margin-top: 1em;
+    }
+
+    .adjustments-side {
+        flex: 1;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1em;
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    .custom-adjustments {
+        margin-top: 2em;
+        background-color: transparent;
+        border: none;
+/*        border: 1px solid #ddd; */
+/*        border-radius: 8px; */
+        padding: 1em 0;
+    }
+
+    .left-column {
+        flex: 0 0 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+/*        border-right: 1px solid #ccc; /* vertical divider */ */
+        padding-right: 1em;
+    }
+
+    .custom-adjustments input,
+    .custom-adjustments textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            flex-direction: column;
+            padding: 1em 0.5em;
+        }
+
+        .filters-side, .adjustments-side {
+            width: 100%;
+        }
+    }
+
+/* Background and text font, size, and colour */
+    body {
+        font-family: Verdana, "Segoe UI", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #222;
+        background-color: #f9f9f9;
+        padding: 0.2em 1em 1em 1em;
+    }
+
+/* Filters and Adjustments formatting */
+    .filters-side {
+        flex: 0 0 260px; /* fixed width */
+        max-width: 260px;
+        background-color: transparent;
+        border: none;
+        padding: 1em;
+    }
+
+    .adjustments-side {
+        flex: 1; /* fills remaining space */
+        background-color: transparent;
+/*        border: 1px solid #ddd; */
+        border-left: 1px solid #ccc; /* vertical divider */
+        padding: 1em;
+        padding-left: 2em; /* space from divider */
+        max-width: 800px;
+    }
+
+    .section-divider {
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+    }
+
+    .toggle-details {
+        margin-left: 1em;
+        font-size: 0.9em;
+        background-color: #eee;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.2em 0.6em;
+    }
+
+    .adjustment-description {
+        font-size: 0.95em;
+        color: #555;
+        margin: 0.5em 0;
+    }
+
+    .adjustment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .adjustment-header::after {
+        content: "▼";
+        font-size: 0.8em;
+        color: #888;
+        margin-left: 0.5em;
+    }
+
+    .adjustment-header.collapsed::after {
+        content: " ▶";
+    }
+
+    .adjustment-details {
+        margin-top: 0.5em;
+    }
+
+    .adjustments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1em;
+    }
+
+/*    .selected-adjustment {
+        border-left: 4px solid #78206E;
+        background-color: #f3e6f2;
+    } */
+
+/* Titles and headings */
+
+    .page-header {
+        color: #78206E;
+        margin-top: -1.5em;
+        padding-top: 0;
+    }
+
+    .page-header h1 {
+        font-size: 2em;
+        position: relative;
+        padding-bottom: 0.4em;
+        margin-bottom: 1em;
+    }
+
+    .page-header h1::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 4px;
+        width: 90%;
+        background: linear-gradient(
+            to right,
+            #A02B93 0%,
+            #D7C8DA 30%,
+            #f9f9f9 100%
+        );
+    }
+
+    h2, h3 {
+        margin-top: 0.3em;
+        border-left: 5px solid #A02B93;
+        padding-left: 0.5em;
+        color: #444;
+    }
+
+    .filters-side h2 {
+        margin-top: 0.3em;
+        margin-bottom: 0.5em;
+        color: #333;
+    }
+
+    .filters-side h3 {
+        margin-top: 1em;
+        font-size: 1.1em;
+        color: #333;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.2em;
+    }
+
+    .collapsible-heading::after {
+        content: " ▼";
+        font-size: 0.8em;
+        color: #888;
+    }
+    .collapsible-heading.collapsed::after {
+        content: " ▶";
+    }
+
+/* Borders, cards, and shadows */
+    .adjustment-box {
+        padding: 0.6em 0.8em;
+        background: transparent;
+/*        border: 1px solid #eee; */
+        border-bottom: 1px solid #A02B93; /* soft accent bar */
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-bottom: 0.6em;
+        transition: background-color 0.2s ease;
+    }
+
+    .adjustment-description {
+        margin: 0.4em 0 0.6em 0;
+        color: #555;
+        font-size: 0.95em;
+    }
+
+/* Hover and focus styles */
+    .filter-checkbox:hover {
+        background-color: #f2edf1;
+        padding-left: 0.5em;
+    }
+
+    input[type="checkbox"]:focus + label,
+    .filter-checkbox:focus {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+    }
+
+    .adjustment-box:hover {
+        background-color: #f2edf1; /* subtle purple-tinted grey */
+    }
+
+/* Button styles */
+    button {
+        background-color: #78206E;
+        color: white;
+        border: none;
+        padding: 0.6em 1.2em;
+        border-radius: 5px;
+        font-weight: 800;
+        cursor: pointer;
+        font-family: Verdana, "Segoe UI", Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #A02B93;
+    }
+
+    .clear-filters-button {
+        background-color: #ddd;
+        color: #333;
+        border: none;
+        padding: 0.4em 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        margin: 0.2em 0 0.5em 0;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .clear-filters-button:hover {
+        background-color: #bbb;
+    }
+
+    .modal {
+        position: fixed;
+        z-index: 1000;
+        left: 0; top: 0;
+        width: 100vw; height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0,0,0,0.5);
+    }
+
+    .modal.hidden {
+        display: none;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 1.5em;
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    .modal-content h3 {
+        margin-top: 0;
+    }
+
+    .modal-content .close {
+        position: absolute;
+        right: 1em;
+        top: 0.5em;
+        font-size: 1.5em;
+        color: #888;
+        cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<!-- ====================== -->
+<!--     HTML STRUCTURE     -->
+<!-- ====================== -->
+
+<body>
+
+<!-- 🔹 Page Header -->
+<header class="page-header">
+  <h1>My ARCC Summary</h1>
+</header>
+
+<!-- 🔹 Layout Container -->
+<div class="container layout-container">
+
+  <!-- 🔹 Left Column: Filters + Custom Adjustments -->
+  <div class="left-column">
+    <div id="filters" class="filters-side">
+    
+        <button onclick="openModal('quiz-modal')" class="toggle-details">Where to Start: Quiz</button>
+
+        <div id="quiz-container" style="display: none; margin-top: 1em; background: #f4f4f4; padding: 1em; border: 1px solid #ccc;">
+          <h3>Quick Quiz</h3>
+        
+          <p>1. Do you struggle with concentration in busy environments?</p>
+          <label><input type="checkbox" data-tags="concentration,auditory,sensory"> Yes</label><br>
+        
+          <p>2. Do you find it hard to manage time or remember appointments?</p>
+          <label><input type="checkbox" data-tags="organisation and time keeping,memory"> Yes</label><br>
+        
+          <p>3. Do you find reading or writing tasks difficult?</p>
+          <label><input type="checkbox" data-tags="reading and writing,information processing"> Yes</label><br>
+        
+          <p>4. Are unfamiliar environments or unclear instructions stressful for you?</p>
+          <label><input type="checkbox" data-tags="uncertainty,information,communication"> Yes</label><br>
+        
+          <p>5. Do you have a physical health condition that affects mobility or energy?</p>
+          <label><input type="checkbox" data-tags="physical accessibility,fatigue"> Yes</label><br><br>
+        
+          <button onclick="processQuiz()">Show Suggested Adjustments</button>
+        </div>
+
+      <h2>Filters</h2>
+      <button type="button" onclick="clearFilters()" class="clear-filters-button">Clear Filters</button>
+
+      <!-- Adjustment Types -->
+      <div class="filter-column">
+        <h3 class="collapsible-heading">Adjustment Types</h3>
+        <div class="filter-group" data-group="type">
+          <span class="filter-checkbox" data-tag="assistive technology">☐ Assistive Technology</span><br>
+          <span class="filter-checkbox" data-tag="environment">☐ Environment</span><br>
+          <span class="filter-checkbox" data-tag="equipment">☐ Equipment</span><br>
+          <span class="filter-checkbox" data-tag="information">☐ Information</span><br>
+          <span class="filter-checkbox" data-tag="physical accessibility">☐ Physical Accessibility</span><br>
+          <span class="filter-checkbox" data-tag="practices">☐ Practices</span><br>
+          <span class="filter-checkbox" data-tag="software">☐ Software</span><br>
+          <span class="filter-checkbox" data-tag="support">☐ Support</span><br>
+        </div>
+      </div>
+
+      <!-- Challenges -->
+      <div class="filter-column">
+        <h3 class="collapsible-heading">Challenges</h3>
+        <div class="filter-group" data-group="challenge">
+          <span class="filter-checkbox" data-tag="auditory">☐ Auditory</span><br>
+          <span class="filter-checkbox" data-tag="communication">☐ Communication</span><br>
+          <span class="filter-checkbox" data-tag="concentration">☐ Concentration</span><br>
+          <span class="filter-checkbox" data-tag="coordination">☐ Coordination</span><br>
+          <span class="filter-checkbox" data-tag="fatigue">☐ Fatigue</span><br>
+          <span class="filter-checkbox" data-tag="information processing">☐ Information Processing</span><br>
+          <span class="filter-checkbox" data-tag="maths and numbers">☐ Maths and Numbers</span><br>
+          <span class="filter-checkbox" data-tag="memory">☐ Memory</span><br>
+          <span class="filter-checkbox" data-tag="organisation and time keeping">☐ Organisation and Time Keeping</span><br>
+          <span class="filter-checkbox" data-tag="reading and writing">☐ Reading and Writing</span><br>
+          <span class="filter-checkbox" data-tag="sensory">☐ Sensory</span><br>
+          <span class="filter-checkbox" data-tag="uncertainty">☐ Uncertainty</span><br>
+        </div>
+      </div>
+
+      <!-- Professions -->
+      <div class="filter-column">
+        <h3 class="collapsible-heading">Professions</h3>
+        <div class="filter-group" data-group="professions">
+          <span class="filter-checkbox" data-tag="nursing">☐ Nursing</span><br>
+          <span class="filter-checkbox" data-tag="dietetics">☐ Dietetics</span><br>
+          <span class="filter-checkbox" data-tag="ODP">☐ ODP</span><br>
+          <span class="filter-checkbox" data-tag="orthoptics">☐ Orthoptics</span><br>
+          <span class="filter-checkbox" data-tag="OT">☐ OT</span><br>
+          <span class="filter-checkbox" data-tag="prosthetics and orthotics">☐ Prosthetics and Orthotics</span><br>
+          <span class="filter-checkbox" data-tag="paramedicine">☐ Paramedicine</span><br>
+          <span class="filter-checkbox" data-tag="physiotherapy">☐ Physiotherapy</span><br>
+          <span class="filter-checkbox" data-tag="podiatry">☐ Podiatry</span><br>
+          <span class="filter-checkbox" data-tag="radiography">☐ Radiography</span><br>
+          <span class="filter-checkbox" data-tag="SLT">☐ SLT</span><br>
+          <span class="filter-checkbox" data-tag="therapeutic arts">☐ Therapeutic Arts</span><br>
+        </div>
+      </div>
+    </div> <!-- end of filters-side -->
+
+    <!-- 🔹 Divider -->
+    <div class="section-divider"></div>
+
+    <!-- 🔹 Custom Adjustments -->
+    <div class="custom-adjustments">
+      <h3>Add Custom Adjustments</h3>
+      <div id="custom-support-container">
+        <!-- New support fields will be added here -->
+      </div>
+      <button type="button" onclick="addCustomSupport()">Add</button>
+      <div style="margin-top: 1em;">
+      </div>
+    </div>
+
+    <!-- 🔹 Divider -->
+    <div class="section-divider"></div>
+
+    <!-- 🔹 Save button -->
+    <button onclick="saveSummary()">Save Summary</button>
+    <button onclick="saveToFile()">Save to File</button>
+    <button onclick="document.getElementById('load-file').click()">Load from File</button>
+    <input type="file" id="load-file" style="display: none" accept=".txt" onchange="loadFromFile(event)">
+    <br><br>
+    <textarea id="load-text" placeholder="Paste your save string here..." rows="3" style="width: 100%;"></textarea>
+    <button onclick="loadFromText()">Load from Text</button>
+  </div>
+
+<!-- end of left-column -->
+
+<!-- 🔹 Right Column: Suggested Adjustments -->
+    <div class="adjustments-side">
+        <div class="adjustments-header">
+            <h2>Suggested Adjustments</h2>
+            <button id="toggle-all-details" class="toggle-details">Show All Details</button>
+        </div>
+    <input type="text" id="adjustment-search" placeholder="Search adjustments..." style="width: 100%; padding: 0.5em; margin-bottom: 1em; font-size: 1em;">
+    <div id="adjustment-list"></div>
+    </div>
+
+</div> <!-- end of layout-container -->
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('quiz-modal')">&times;</span>
+          <h3>Quick Quiz</h3>
+      
+          <p><strong>1. When you're writing or typing up documentation (or essays), what's hardest for you?</strong></p>
+          <label><input type="radio" name="write" value="write_structure"> Organising my thoughts into a clear structure</label><br>
+          <label><input type="radio" name="write" value="write_translate"> Translating my ideas into written words</label><br>
+          <label><input type="radio" name="write" value="write_spelling"> Spelling, grammar, or wording things properly</label><br>
+          <label><input type="radio" name="write" value="write_memory"> Remembering what to include</label><br>
+          <label><input type="radio" name="write" value="write_physical"> The physical act of writing or typing</label><br>
+          <label><input type="radio" name="write" value="write_numbers"> Calculating or copying numerical data across</label><br><br>
+      
+          <p><strong>2. When someone gives you verbal instructions, what tends to go wrong?</strong></p>
+          <label><input type="radio" name="verbal" value="verbal_noise"> I can’t hear them properly over background noise</label><br>
+          <label><input type="radio" name="verbal" value="verbal_words"> I hear the words, but don’t always understand</label><br>
+          <label><input type="radio" name="verbal" value="verbal_meaning"> I understand the words, but not what they mean together</label><br>
+          <label><input type="radio" name="verbal" value="verbal_context"> I miss implied meaning or context</label><br>
+          <label><input type="radio" name="verbal" value="verbal_tired"> I zone out or get too tired to follow</label><br>
+          <label><input type="radio" name="verbal" value="verbal_forget"> I understand it at the time, but forget it afterwards</label><br>
+          <label><input type="radio" name="verbal" value="verbal_action"> I remember what they said, but struggle to act on it</label><br><br>
+      
+          <p><strong>3. When you're making notes during a meeting, what slows you down the most?</strong></p>
+          <label><input type="radio" name="notes" value="notes_hearing"> Struggling to hear what people are saying</label><br>
+          <label><input type="radio" name="notes" value="notes_paraphrase"> Finding it hard to paraphrase or summarise</label><br>
+          <label><input type="radio" name="notes" value="notes_focus"> Losing focus during long meetings</label><br>
+          <label><input type="radio" name="notes" value="notes_order"> Difficulty putting thoughts into word order</label><br>
+          <label><input type="radio" name="notes" value="notes_physical"> Struggling with the act of writing/typing</label><br><br>
+      
+          <p><strong>4. When you're assessing a patient, what takes the most effort?</strong></p>
+          <label><input type="radio" name="assess" value="assess_rapport"> Building rapport or adapting communication</label><br>
+          <label><input type="radio" name="assess" value="assess_tone"> Interpreting tone of voice or body language</label><br>
+          <label><input type="radio" name="assess" value="assess_physical"> Carrying out physical observations</label><br>
+          <label><input type="radio" name="assess" value="assess_memory"> Remembering steps of structured assessment</label><br>
+          <label><input type="radio" name="assess" value="assess_notes"> Making notes while engaging with patient</label><br>
+          <label><input type="radio" name="assess" value="assess_hearing"> Hearing or understanding the patient</label><br>
+          <label><input type="radio" name="assess" value="assess_plan"> Planning or adapting the assessment</label><br>
+          <label><input type="radio" name="assess" value="assess_timing"> Keeping track of time during the assessment</label><br><br>
+      
+          <p><strong>5. When trying to complete routine tasks in a busy environment, what affects your focus most?</strong></p>
+          <label><input type="radio" name="focus" value="focus_noise"> Sudden or loud sounds</label><br>
+          <label><input type="radio" name="focus" value="focus_switching"> Having to switch between tasks</label><br>
+          <label><input type="radio" name="focus" value="focus_repetitive"> Doing repetitive tasks for long</label><br>
+          <label><input type="radio" name="focus" value="focus_screen"> Bright lights or screen time</label><br>
+          <label><input type="radio" name="focus" value="focus_crowding"> Navigating space or focusing on movement</label><br><br>
+      
+          <p><strong>6. If I’m reading a patient’s notes or record and there’s an error, I’m more likely to miss it if…</strong></p>
+          <label><input type="radio" name="error" value="error_word"> It’s a word I’m unfamiliar with</label><br>
+          <label><input type="radio" name="error" value="error_numbers"> It’s numerical data</label><br>
+          <label><input type="radio" name="error" value="error_paragraph"> It’s buried in a long paragraph</label><br>
+          <label><input type="radio" name="error" value="error_tired"> It’s the end of shift / I’ve missed breaks</label><br>
+          <label><input type="radio" name="error" value="error_noise"> I’m in a noisy or busy place</label><br>
+          <label><input type="radio" name="error" value="error_multitask"> I’m multitasking or under time pressure</label><br><br>
+      
+          <p><strong>7. When you're working in a space that's unfamiliar or cluttered, what gets in the way most?</strong></p>
+          <label><input type="radio" name="space" value="space_find"> Struggling to find what I need</label><br>
+          <label><input type="radio" name="space" value="space_miss"> Missing visible things due to visual clutter</label><br>
+          <label><input type="radio" name="space" value="space_obstacles"> Needing to move around obstacles</label><br>
+          <label><input type="radio" name="space" value="space_unknown"> Not knowing how the space is used</label><br>
+          <label><input type="radio" name="space" value="space_rearrange"> Rearranging things takes time/energy</label><br>
+          <label><input type="radio" name="space" value="space_forgot"> Forgetting where things are</label><br>
+          <label><input type="radio" name="space" value="space_label_numbers"> Needing to read numerical info quickly</label><br>
+          <label><input type="radio" name="space" value="space_label_words"> Labels are small/blurry/poorly spaced</label><br><br>
+      
+          <button onclick="generateRecommendations()">See My Suggestions</button>
+        </div>
+      </div>
+      
+    
+    <!-- Recommendations Modal -->
+    <div id="recommendations-modal" class="modal hidden">
+        <div class="modal-content">
+        <span class="close" onclick="closeModal('recommendations-modal')">&times;</span>
+        <h3>Recommended Adjustments</h3>
+        <form id="recommendation-form"></form>
+        <button onclick="confirmRecommendations()">Confirm Selections</button>
+        </div>
+    </div>
+
+</body>
+
+
+<!-- ========================== -->
+<!--  JAVASCRIPT FUNCTIONALITY  -->
+<!-- ========================== -->
+
+
+<script>
+  const selectedAdjustmentsState = {}; // Tracks selections across filter changes
+
+  // 💾 Save Summary
+
+function saveSummary() {
+  // Get selected adjustments
+  const selected = [];
+
+  for (const adjName in selectedAdjustmentsState) {
+    const state = selectedAdjustmentsState[adjName];
+    if (state.checked) {
+      const adjustment = adjustments.find(a => a.name === adjName);
+      const description = adjustment ? adjustment.description : "";
+      const comment = state.comment ? `<p><em>Comments:</em> ${state.comment}</p>` : "";
+
+      const text = `
+        <div class="adjustment">
+          <strong>${adjName}</strong>
+          <p class="export-description">${description}</p>
+          ${comment}
+        </div>
+      `;
+      selected.push(text);
+    }
+  };
+
+  // Get custom supports
+  const customBlocks = [];
+  const supportInputs = document.querySelectorAll('.custom-support');
+  const detailInputs = document.querySelectorAll('.custom-details');
+
+  for (let i = 0; i < supportInputs.length; i++) {
+    const title = supportInputs[i].value.trim();
+    const detail = detailInputs[i].value.trim();
+    if (title) {
+      customBlocks.push(`
+        <div class="adjustment">
+          <strong>${title}</strong>
+          ${detail ? `<p><em>Details:</em> ${detail}</p>` : ""}
+        </div>
+      `);
+    }
+  }
+
+  // Combine into HTML template
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>ARCC Summary Export</title>
+    <style>
+        body {
+        font-family: Verdana, sans-serif;
+        font-size: 16px;
+        color: #222;
+        background: white;
+        padding: 2em;
+        }
+        h1 {
+        color: #78206E;
+        border-bottom: 2px solid #A02B93;
+        padding-bottom: 0.3em;
+        }
+        .section {
+        margin-bottom: 2em;
+        }
+        .adjustment {
+        margin-bottom: 1em;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-left: 4px solid #A02B93;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        }
+        .adjustment p {
+        margin: 0.3em 0 0 0;
+        }
+    </style>
+    </head>
+    <body>
+    <h1>My ARCC Summary</h1>
+
+    <div class="section">
+        <h2>Selected Adjustments</h2>
+        ${selected.length ? selected.join('') : "<p><em>None selected</em></p>"}
+    </div>
+
+    <div class="section">
+        ${customBlocks.length ? `
+        <div class="section">
+            ${customBlocks.join('')}
+    </div>
+    ` : ""}
+
+    </body>
+    </html>`;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write(htmlContent + `
+    <script>
+        window.onload = function() {
+        window.print();
+        };
+    <\/script>
+    `);
+    printWindow.document.close();
+    }
+
+// Add custom adjustments
+
+    function addCustomSupport() {
+      const container = document.getElementById('custom-support-container');
+
+      const wrapper = document.createElement('div');
+      wrapper.style.marginBottom = "1em";
+
+      const input = document.createElement('input');
+      input.type = "text";
+      input.placeholder = "e.g., Quiet workspace";
+      input.className = "custom-support";
+
+      const textarea = document.createElement('textarea');
+      textarea.rows = 3;
+      textarea.cols = 50;
+      textarea.placeholder = "Additional details...";
+      textarea.className = "custom-details";
+
+      wrapper.appendChild(document.createTextNode("Custom adjustment: "));
+      wrapper.appendChild(input);
+      wrapper.appendChild(document.createElement("br"));
+      wrapper.appendChild(document.createTextNode("Details: "));
+      wrapper.appendChild(textarea);
+
+      container.appendChild(wrapper);
+    }
+
+
+
+  // List of suggested adjustments
+const adjustments = [
+{
+ name: "Access to examples of completed documentation",
+  description: "Seeing what a finished form looks like can make it easier to understand what to do and reduce the chance of mistakes.",
+  tags: ["practices","information","reading and writing","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Access to quiet room",
+  description: "A quiet, low-traffic space can reduce noise and activity levels, making it easier to concentrate, manage auditory sensitivity, or take medication in private.",
+  tags: ["environment","sensory","auditory","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Accessible font types",
+  description: "Using clear, well-spaced fonts - such as Arial, Calibri, or other fonts designed for readability - can reduce visual stress and make reading easier for people who struggle with standard formatting.",
+  tags: ["information","software","reading and writing","sensory","information processing","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Additional opportunities to practice physical procedures",
+  description: "Extra chances to practise physical tasks can help with coordination and reduce mistakes for people who need more time to learn movements.",
+  tags: ["practices","support","physical accessibility","coordination","information processing","memory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+},
+{
+ name: "Additional time for documentation",
+  description: "Allowing extra time for documentation can help with spelling, typing, or structuring information without rushing. Provide feedback if they have included too much information, or if there are more concise ways to document specific observations or actions (e.g., ‘the patient was speaking very slowly and quietly’ > ‘speech was slow and quiet’).",
+  tags: ["practices","support","reading and writing","memory","organisation and time keeping","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Adjusted start/end time",
+  description: "Adjusting shifts to begin or end slightly earlier or later for people with fatigue, travel needs (such as avoiding public transport at peak times), or time-sensitive medication.",
+  tags: ["practices","fatigue","organisation and time keeping","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Adjustments to uniform",
+  description: "Changes to the standard uniform can reduce discomfort from sensory issues or physical health conditions.",
+  tags: ["equipment","environment","sensory","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT"]
+},
+{
+ name: "Allocated device / laptop",
+  description: "Having consistent access to a personal device avoids delays in inputting documentation from memory, and allows use of needed software or accessibility settings.",
+  tags: ["equipment","assistive technology","software","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","ward","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts"]
+},
+{
+ name: "Allocation to site close to home",
+  description: "If the placement has multiple bases or allows for insight visits / spoke placements, working from a site closer to home can make travel more predictable, reduce exhaustion from overstimulation (e.g., noise, crowds, motion), and reduce the impact of long commutes on fixed routines like taking prescribed medication.",
+  tags: ["practices","environment","physical accessibility","fatigue","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Amplified stethoscope",
+  description: "Amplified stethoscopes increase volume and may make it easier to distinguish sounds when auscultating or measuring blood pressure, particularly for people with auditory processing difficulties. These may need to be arranged through the practice learning team.",
+  tags: ["equipment","auditory","sensory","nursing","ODP","paramedicine","physiotherapy"]
+},
+{
+ name: "Anti-glare screens",
+  description: "These reduce screen brightness or reflection, which can help with headaches, eye strain, or visual sensitivity.",
+  tags: ["equipment","environment","sensory","reading and writing","maths and numbers","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts"]
+},
+{
+ name: "Assigned (anchor) desk (if hotdesking)",
+  description: "Having a set workspace can make it easier to use specialist equipment or software, avoids repeated setup and disruption from switching desks, and reduces problems with coordination or distress from unpredictable environments.",
+  tags: ["environment","practices","sensory","concentration","uncertainty","community","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT"]
+},
+{
+ name: "Closed captioning",
+  description: "Captions display spoken words as text, which helps people who miss or mishear speech due to auditory processing difficulties, struggle to follow fast conversations, or need a written version to refer back to. These should be enabled during online meetings (e.g., Teams, Zoom), shared with video content, or used in person through apps like Teams or phone-based captioning tools.",
+  tags: ["assistive technology","software","auditory","sensory","concentration","information processing","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Coloured overlays",
+  description: "Transparent coloured sheets reduce glare and visual stress, making printed text easier to read for people who struggle with bright contrast, moving or blurring letters, or visual discomfort when reading.",
+  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Combination of verbal and written information / feedback ",
+  description: "Providing both spoken and written information makes it easier to understand, retain, and refer back to important details.",
+  tags: ["information","support","auditory","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Device to work from home",
+  description: "Access to a secure laptop or device at home allows people to complete tasks remotely when travel or placement conditions create barriers. This should be arranged in advance with the practice learning team.",
+  tags: ["equipment","environment","practices","physical accessibility","fatigue","sensory","concentration","organisation and time keeping","information and time keeping","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts"]
+},
+{
+ name: "Dictation software (any)",
+  description: "Dictation tools let someone speak instead of type, which can reduce fatigue or help with spelling or handwriting difficulties. This should be installed and tested before placement starts.",
+  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Dictation software (Dragon)",
+  description: "Dragon is a speech-to-text programme that works well for people who need advanced voice control. Dragon Medical is compatible with most Electronic Patient Record software.",
+  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Dictation software (Microsoft Teams / Word / Outlook)",
+  description: "Built-in dictation tools in Microsoft apps can be used to speak instead of type, and using an account linked to the placement provider (e.g., @nhs.net) helps maintain confidentiality.",
+  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Direct questions",
+  description: "During assessments or reflective discussions, asking direct rather than open-ended or abstract questions makes it easier for people to understand what is being asked and how to respond. This reduces misunderstandings caused by interpreting the question differently from how it was intended. For example, instead of 'How did that go?', a supervisor might ask, 'What clinically relevant observations of the patient did you make?'",
+  tags: ["support","practices","communication","uncertainty","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Earplugs",
+  description: "Wearing earplugs can reduce background noise, sensory irritation, or pain from loud environments. Disposable earplugs are more suitable for infection control, and sitting inside the ear canal prevents them from being grabbed. Different strength earplugs can be suitable in different environments - some can dull noise while not interfering with communication, others can effectively block out most noise, including speech.",
+  tags: ["equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Email summarising important points following a meeting ",
+  description: "Providing a short written summary after key meetings (e.g., initial, midpoint, or final placement meetings, supervision, or feedback) helps people remember important information and avoid misunderstandings.",
+  tags: ["information","support","auditory","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Environmental orientation on first day",
+  description: "A walk-through of key areas (toilets, break spaces, exit routes, documentation areas) helps reduce stress and uncertainty, especially for people who find new environments overwhelming or hard to navigate.",
+  tags: ["environment","information","support","auditory","sensory","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Familiarisation with equipment",
+  description: "Letting people try out equipment before using it with patients helps those who need more time to plan physical movements or adjust to manual tasks. This can be arranged during quieter periods. Offer concise checklist-style guides for equipment setup and use to support procedural memory.",
+  tags: ["equipment","practices","support","information processing","uncertainty","coordination","sensory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+},
+{
+ name: "Familiarisation with software",
+  description: "Being shown how to use a system and given written guides or checklists can reduce mistakes and delays.",
+  tags: ["software","practices","support","information processing","uncertainty","reading and writing","maths and numbers","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Fidget tools",
+  description: "Items appropriate for the placement (accounting for infection control and risk assessments) that provide sensory input to regulate responses in both overstimulating environments (e.g., to avoid sensory overload) and understimulating settings (e.g., to maintain concentration). Can be worn on a lanyard or ID holder if pockets must remain empty or arms bare below the elbow.",
+  tags: ["equipment","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Flexible shifts",
+  description: "Flexibility with shift patterns (earlies, lates, long days, nights, etc) and days on/off can help manage energy levels, appointments and medication, or responsibilities outside of placement.",
+  tags: ["practices","fatigue","organisation and time keeping","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+},
+{
+ name: "Give timetable / rota at least four weeks in advance",
+  description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Give timetable / rota at least one week in advance",
+  description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Give timetable / rota at least two weeks in advance",
+  description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Give timetable / rota in advance",
+  description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Induction booklet",
+  description: "An induction booklet should include information like shift patterns, documentation format (e.g., handwritten or electronic), dress code, parking, expected tasks, and the layout of the placement area. When people receive this in advance, it allows them to contact the practice learning team before placement starts if any adjustments are needed - rather than arriving unprepared and waiting days or weeks for support.",
+  tags: ["information","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Materials printed on coloured paper",
+  description: "Using coloured paper can make reading easier for people who experience visual stress or find high-contrast text difficult.",
+  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Materials printed on matt paper",
+  description: "Materials printed on matt paper reduce shine and reflections that can make text harder to read. This can support people who experience visual discomfort, sensitivity to glare, or find glossy paper distracting or disorienting.",
+  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Medication",
+  description: "Some people need to carry, store, or take medication during placement, including at specific times. This may require a private space, or access to storage depending on the medication.",
+  tags: ["practices","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Memory aids: ",
+  description: "Memory aids reduce the need to rely on recall during tasks that involve specific numbers, steps, or scores.",
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Memory aids: Assessments",
+  description: "Structured prompts help people gather information without missing key details. Examples include SOAP (‘patient Said’ / I ‘Observed’), I AM A STAR (mental state exam), SOCRATES (pain), and AMPLE (trauma). These can be printed and kept on hand, or added to notes, shift folders, or computers.",
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","OT","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Memory aids: Documentation",
+  description: "Guides or checklists help people know what to include in case notes and how to structure it. Examples include prompts like: who you spoke to (name, role, location), what they said or asked, what you agreed, and any actions to take. These can be printed and kept on hand, or added to notes, shift folders, or computers.",
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Memory aids: Exposure factors",
+  description: "Quick-reference cards for exposure settings reduce delays and mistakes when calculating imaging requirements.",
+  tags: ["equipment","information","maths and numbers","memory","information processing","concentration","uncertainty","radiography"]
+},
+{
+ name: "Memory aids: Medication",
+  description: "Let people know which medications are commonly used in the placement area or role, allowing time to process and learn them. Support can include providing or helping the person create reference notes summarising medication names, indications, contraindications, dosage ranges, and interactions, grouped by class or colour-coded for ease of use.",
+  tags: ["equipment","information","memory","maths and numbers","information processing","concentration","uncertainty","nursing","ODP","OT","paramedicine","physiotherapy","podiatry"]
+},
+{
+ name: "Memory aids: NEWS2 cards",
+  description: "These help with checking and recording vital signs using the NEWS2 scoring system without needing to memorise ranges.",
+  tags: ["equipment","information","maths and numbers","memory","information processing","concentration","uncertainty","nursing","paramedicine"]
+},
+{
+ name: "Memory aids: Safety checks",
+  description: "Prompts help people follow correct steps in safety-critical tasks. Examples include the 6 Rs of medication administration, radiography checks (identity, contrast reaction, LMP, metal), and risk assessment questions. These can be printed and kept on hand, or added to notes, shift folders, or computers.",
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","ODP","OT","paramedicine","physiotherapy","podiatry","radiography"]
+},
+{
+ name: "Modified break schedule",
+  description: "Some people benefit from taking breaks at different intervals to manage fatigue, sensory needs, or medical conditions. This may involve splitting a standard break into shorter periods or shifting break times slightly.",
+  tags: ["practices","auditory","memory","fatigue","communication","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Movement breaks",
+  description: "Short periods of movement (e.g., stretching, walking, climbing stairs) during desk-based roles can improve focus, reduce agitation, and increase energy. These should be feasible within infection control (maintaining a sterile field) and safety requirements.",
+  tags: ["practices","concentration","information processing","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Named supervisor / educator",
+  description: "Some professions do not allocate a student to a single named supervisor. People who need adjustments or a named point of contact for placement issues may require a named educator who is present within the placement team (not a member of the separate practice learning team).",
+  tags: ["practices","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","radiography"]
+},
+{
+ name: "No (or warning for) loud noises",
+  description: "Auditory hypersensitivity can cause people to experience pain or disorientation from sudden loud sounds. Advance warning (e.g., before testing alarms or approaching an MRI machine) allows them to manage or prepare for this.",
+  tags: ["support","practices","auditory","sensory","uncertainty","concentration","information processing","nursing","ODP","OT","paramedicine","physiotherapy","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Noise-cancelling earphones / headphones",
+  description: "Noise-cancelling earphones/headphones can reduce background noise, sensory irritation, or pain from loud environments while not affecting speech or specific noises like alarms.",
+  tags: ["assistive technology","equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Phone reminders",
+  description: "People with organisation and time keeping or memory difficulties often use phone reminders to support 'prospective memory', i.e. remembering to do something in the future. If a placement location cannot provide an alternative reminder / alarm system, use of phone reminders for tasks to be done at set times is reasonable. If phones are not usually allowed on the ward, mobile signal and Wifi can be turned off.",
+  tags: ["equipment","assistive technology","practices","memory","concentration","organisation and time keeping","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Preferential seating in meetings/training",
+  description: "People with auditory processing difficulties may benefit from sitting close to the speaker - e.g., at the front in training sessions or centrally during meetings - to improve clarity of sound and minimise competing noise.",
+  tags: ["practices","environment","auditory","sensory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Pre-placement visit",
+  description: "A pre-placement visit gives people the chance to identify barriers that may not be obvious to supervisors, especially where the student has access needs the supervisor does not - such as noticing how a loud ward might affect someone with auditory processing difficulties. It also provides time to contact the practice learning team or arrange equipment, software, or other adjustments in advance, and serves as a practice run for the journey to reduce uncertainty or organisational difficulties on the first day.",
+  tags: ["environment","physical accessibility","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Quiet place to complete documentation",
+  description: "Offer access to a quiet, low-traffic area (e.g., side room, staff base during quieter times) for completing documentation without interruptions or background noise.",
+  tags: ["environment","auditory","reading and writing","concentration","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Repeat or rephrase information",
+  description: "People with auditory or information processing difficulties may need spoken information repeated or explained in a different way to avoid misunderstanding.",
+  tags: ["support","information","auditory","concentration","information processing","fatigue","communication","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Rest breaks",
+  description: "Allowing short breaks or switching to quieter or less physical tasks - such as doing paperwork or transporting samples - can help manage fatigue, pain, or sensory sensitivity during a shift.",
+  tags: ["fatigue","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Rest breaks during surgery",
+  description: "Some people may struggle with bright, high-focus environments like theatres, especially during long or visually intense procedures. While learning, allow students to step out briefly if needed, and provide multiple supervised opportunities across the placement to build tolerance and familiarity.",
+  tags: ["practices","environment","fatigue","concentration","sensory","nursing","dietetics","podiatry","radiography"]
+},
+{
+ name: "Safety information in alternative format",
+  description: "Provide health and safety information (e.g., fire evacuation, resuscitation protocols) in an accessible format, such as screen reader–compatible documents or coloured paper. This may need to be arranged through the practice learning team.",
+  tags: ["information","reading and writing","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Soft skills support",
+  description: "Soft skills like small talk, body language, or tone of voice are rarely taught directly but are often expected in healthcare. Students with communication differences may not pick these up intuitively, especially if feedback focuses on outcomes rather than unspoken expectations (e.g., being told to 'build rapport' without being shown how). Many supervisors developed these skills unconsciously and may not find it easy to explain them to others. Support could include things like explaining when and how to use certain phrases (e.g., 'Would it be okay if I...'), modelling specific interactions (e.g., how to introduce yourself on a ward round, ways of responding to a distressed patient), or offering links to practical resources (e.g., online videos of actual patient interactions, shared with patient consent).",
+  tags: ["information","support","practices","communication","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Spell check software",
+  description: "Spell check tools can reduce errors when typing and make written communication quicker and easier.",
+  tags: ["assistive technology","software","reading and writing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Stenomask",
+  description: "A stenomask allows people to use speech recognition software in noisy environments by speaking into a soundproof mask. This both reduces background interference (useful on wards or in community settings) and maintains patient confidentiality.",
+  tags: ["assistive technology","equipment","reading and writing","coordination","fatigue","nursing","paramedicine"]
+},
+{
+ name: "Support to prioritise tasks",
+  description: "Supervisors should support people to prioritise by explaining which tasks are more urgent and why. General rules (e.g., safety tasks before paperwork) help them apply this independently in future.",
+  tags: ["support","organisation and time keeping","uncertainty","memory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Templates for documentation",
+  description: "Templates reduce the cognitive effort needed to plan and structure written work by making clear what’s expected and where to put it. Formats like SOAP (which some people find easier to remember as ‘patient Said’ and ‘I Observed’) or I AM A STAR for mental state examinations can help people who benefit from extra structure or memory prompts.",
+  tags: ["information","reading and writing","memory","communication","concentration","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Text-to-speech",
+  description: "Text-to-speech software reads text aloud, letting people process information by listening instead of reading. This can support people who experience visual stress, fatigue, or who find reading difficult.",
+  tags: ["assistive technology","software","equipment","reading and writing","sensory","fatigue","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Time off for medical appointments / treatment",
+  description: "Some people may need authorised time away from placement to attend regular medical appointments or receive treatment.",
+  tags: ["practices","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Unit conversion charts",
+  description: "Provide unit conversion charts to reduce reliance on memory and mental calculation, and lower the risk of error under time pressure or environmental stressors. Different charts may suit different settings - e.g., mg to mL conversions for medication prep, or imperial to metric and Celsius to Fahrenheit for outpatient clinics. Keep them in visible, relevant areas (e.g., drug trolleys, wall displays, or kits).",
+  tags: ["environment","information","maths and numbers","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT"]
+},
+{
+ name: "Use of a calculator",
+  description: "Using a calculator supports people who have difficulty with mental arithmetic, especially in high-pressure or time-limited situations.",
+  tags: ["equipment","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Verbal information / feedback",
+  description: "Give feedback or instructions verbally for people who process spoken input better than written text or have difficulty reading.",
+  tags: ["information","support","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
+ name: "Working area with more space",
+  description: "Extra physical space helps people who need to avoid crowding, move freely, or organise their materials and equipment in a consistent way.",
+  tags: ["environment","physical accessibility","coordination","information processing","sensory","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","therapeutic arts"]
+},
+{
+ name: "Written information / feedback",
+  description: "Providing written information or feedback gives people a clear record they can process at their own pace and refer back to when needed.",
+  tags: ["information","support","auditory","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+}
+];
+
+
+  // Track filter state: {tagName: true/false/null}
+  const filterStates = {};
+
+
+
+  // 🧩 Adjustment rendering
+
+  // Save checkbox states and comments before rerendering
+function renderAdjustments() {
+  const container = document.getElementById('adjustment-list');
+  container.innerHTML = "";
+
+  adjustments.forEach(adj => {
+    const tags = adj.tags;
+    let show = true;
+
+    for (let tag in filterStates) {
+      const state = filterStates[tag];
+      if (state === true && !tags.includes(tag)) {
+        show = false;
+      }
+      if (state === false && tags.includes(tag)) {
+        show = false;
+      }
+    }
+
+    if (show) {
+        const div = document.createElement('div');
+        div.className = "adjustment-box";
+
+        // Check if this adjustment is selected
+        const saved = selectedAdjustmentsState[adj.name];
+        if (saved && saved.checked) {
+            div.classList.add("selected-adjustment");
+        }
+
+        div.innerHTML = `
+            <div class="adjustment-header${saved && saved.checked ? ' selected' : ''}">
+                <strong>${adj.name}${saved && saved.checked ? ' ✔️' : ''}</strong>
+            </div>
+            <div class="adjustment-details" style="display: none;">
+                <p class="adjustment-description">${adj.description}</p>
+                <label>
+                <input type="checkbox" class="adjustment" value="${adj.name}">
+                Include this adjustment
+                </label>
+                <textarea class="adjustment-detail" placeholder="Additional details..." style="display: none;"></textarea>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    // Ensure correct collapsed/expanded icon on render
+    document.querySelectorAll('.adjustment-box').forEach(box => {
+        const header = box.querySelector('.adjustment-header');
+        const details = box.querySelector('.adjustment-details');
+
+        header.classList.toggle('collapsed', details.style.display === 'none');
+    });
+  });
+
+  bindCheckboxEvents(); // restores state from global object
+  setupToggleButtons();
+  setupBoxClickToggles();
+
+    // Show details for all selected adjustments on load
+    document.querySelectorAll('.adjustment').forEach(box => {
+        const wrapper = box.closest('.adjustment-box');
+        const details = wrapper.querySelector('.adjustment-details');
+        const textarea = wrapper.querySelector('.adjustment-detail');
+
+    if (box.checked) {
+        details.style.display = "block";
+        textarea.style.display = "block";
+    }
+    });
+}
+
+// Fuzzy search for adjustments
+function setupSearch() {
+  const input = document.getElementById('adjustment-search');
+
+  input.addEventListener('input', () => {
+    const query = input.value.trim().toLowerCase();
+
+    // Search against adjustment name + description
+    document.querySelectorAll('.adjustment-box').forEach(box => {
+      const name = box.querySelector('.adjustment-header strong').textContent.toLowerCase();
+      const desc = box.querySelector('.adjustment-description')?.textContent.toLowerCase() || "";
+
+      const match = name.includes(query) || desc.includes(query);
+      box.style.display = match ? "block" : "none";
+    });
+  });
+}
+
+function setupBoxClickToggles() {
+  const boxes = document.querySelectorAll('.adjustment-box');
+
+  boxes.forEach(box => {
+    const header = box.querySelector('.adjustment-header');
+    const details = box.querySelector('.adjustment-details');
+    const checkbox = box.querySelector('input[type="checkbox"]');
+    const textarea = box.querySelector('.adjustment-detail');
+
+    header.style.cursor = "pointer";
+
+    header.addEventListener('click', () => {
+        const isVisible = details.style.display !== 'none';
+        details.style.display = isVisible ? 'none' : 'block';
+
+        // Toggle collapsed class on header
+        header.classList.toggle('collapsed', isVisible);
+
+        // Only show textarea if checkbox is checked
+        textarea.style.display = checkbox.checked && !isVisible ? 'block' : 'none';
+    });
+
+    // Handle checkbox state
+    checkbox.addEventListener('change', () => {
+      const isChecked = checkbox.checked;
+      textarea.style.display = isChecked ? 'block' : 'none';
+
+      selectedAdjustmentsState[checkbox.value] = {
+        checked: isChecked,
+        comment: textarea.value
+      };
+
+      if (isChecked) {
+        box.classList.add("selected-adjustment");
+      } else {
+        box.classList.remove("selected-adjustment");
+      }
+    });
+
+    textarea.addEventListener('input', () => {
+      if (!selectedAdjustmentsState[checkbox.value]) {
+        selectedAdjustmentsState[checkbox.value] = {};
+      }
+      selectedAdjustmentsState[checkbox.value].comment = textarea.value;
+    });
+  });
+}
+
+function setupToggleButtons() {
+  const toggleButtons = document.querySelectorAll('.toggle-details');
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const box = button.closest('.adjustment-box');
+        const details = box.querySelector('.adjustment-details');
+        const textarea = details.querySelector('.adjustment-detail');
+        const checkbox = box.querySelector('.adjustment');
+
+        const isVisible = details.style.display !== 'none';
+        const shouldShow = !isVisible;
+
+        // Toggle main detail visibility
+        details.style.display = shouldShow ? 'block' : 'none';
+        button.textContent = shouldShow ? " ▼" : " ▶";
+
+        // Show/hide the textarea **only if checkbox is selected**
+        if (checkbox.checked) {
+        textarea.style.display = shouldShow ? 'block' : 'none';
+        } else {
+        textarea.style.display = 'none';
+        }
+    });
+  });
+}
+
+function setupToggleAllButton() {
+  const toggleAllButton = document.getElementById('toggle-all-details');
+
+  toggleAllButton.addEventListener('click', () => {
+    const show = toggleAllButton.textContent === 'Show All Details';
+
+    // Toggle each detail section
+    document.querySelectorAll('.adjustment-box').forEach(box => {
+      const details = box.querySelector('.adjustment-details');
+      const header = box.querySelector('.adjustment-header');
+
+      details.style.display = show ? 'block' : 'none';
+
+      // Toggle arrow direction
+      if (show) {
+        header.classList.remove('collapsed');
+      } else {
+        header.classList.add('collapsed');
+      }
+    });
+
+    // Update individual toggle buttons if present
+    const individualButtons = document.querySelectorAll('.adjustment-box .toggle-details');
+    individualButtons.forEach(button => {
+      button.textContent = show ? " ▼" : " ▶";
+    });
+
+    // Update the main button
+    toggleAllButton.textContent = show ? 'Hide All Details' : 'Show All Details';
+  });
+}
+
+  // 🔁 Filter setup
+
+  // Clear filters
+  function clearFilters() {
+    // Reset all filter states
+    for (let tag in filterStates) {
+      filterStates[tag] = null;
+    }
+
+    // Reset the visual appearance of all checkboxes
+    const checkboxes = document.querySelectorAll('.filter-checkbox');
+    checkboxes.forEach(cb => {
+      cb.classList.remove('filter-include', 'filter-exclude');
+      cb.textContent = "☐ " + cb.textContent.slice(2);
+    });
+
+    renderAdjustments();
+  }
+
+  // Cycle through tri-state on filter click
+  function setupFilters() {
+    const checkboxes = document.querySelectorAll('.filter-checkbox');
+    checkboxes.forEach(cb => {
+      cb.addEventListener('click', () => {
+        const tag = cb.dataset.tag;
+        const current = filterStates[tag] ?? null;
+
+        let next;
+        if (current === null) {
+          next = true;
+          cb.classList.remove('filter-exclude');
+          cb.classList.add('filter-include');
+          cb.textContent = "✔ " + cb.textContent.slice(2);
+        } else if (current === true) {
+          next = false;
+          cb.classList.remove('filter-include');
+          cb.classList.add('filter-exclude');
+          cb.textContent = "✖ " + cb.textContent.slice(2);
+        } else {
+          next = null;
+          cb.classList.remove('filter-exclude');
+          cb.textContent = "☐ " + cb.textContent.slice(2);
+        }
+
+        filterStates[tag] = next;
+        renderAdjustments();
+      });
+    });
+  }
+
+  function setupFilterToggles() {
+  const headings = document.querySelectorAll('.collapsible-heading');
+
+    headings.forEach(heading => {
+        heading.style.cursor = "pointer";
+        heading.addEventListener('click', () => {
+            const next = heading.nextElementSibling;
+            if (next && next.classList.contains('filter-group')) {
+                const isHidden = next.style.display === 'none';
+                next.style.display = isHidden ? 'block' : 'none';
+                heading.classList.toggle('collapsed', !isHidden);
+            }
+        });
+    });
+  }
+
+
+  // 🔧 Bind checkbox functionality
+
+  // Checkbox handling for comments
+    function bindCheckboxEvents() {
+        const boxes = document.querySelectorAll('.adjustment');
+        boxes.forEach(box => {
+            const wrapper = box.closest('.adjustment-box');
+            const textarea = wrapper.querySelector('.adjustment-detail');
+
+            // Restore current state if available
+            const saved = selectedAdjustmentsState[box.value];
+            if (saved) {
+            box.checked = saved.checked;
+            textarea.value = saved.comment;
+            textarea.style.display = saved.checked ? "block" : "none";
+            }
+
+            // Ensure class is applied on initial render
+            if (box.checked) {
+            wrapper.classList.add("selected-adjustment");
+            } else {
+            wrapper.classList.remove("selected-adjustment");
+            }
+
+            // Update class and state on change
+            box.addEventListener('change', () => {
+            const isChecked = box.checked;
+            textarea.style.display = isChecked ? "block" : "none";
+
+            selectedAdjustmentsState[box.value] = {
+                checked: isChecked,
+                comment: textarea.value
+            };
+
+            // 🔧 Add or remove class based on selection
+            const header = wrapper.querySelector('.adjustment-header');
+            const nameEl = header.querySelector('strong');
+
+            if (isChecked) {
+            nameEl.innerHTML = `${box.value} ✔️`;
+            } else {
+            nameEl.innerHTML = box.value;
+            }
+            });
+
+            textarea.addEventListener('input', () => {
+            if (!selectedAdjustmentsState[box.value]) {
+                selectedAdjustmentsState[box.value] = {};
+            }
+            selectedAdjustmentsState[box.value].comment = textarea.value;
+            });
+        });
+    }
+
+  // 'Where to start' quiz
+
+    function toggleQuiz() {
+        const quiz = document.getElementById("quiz-container");
+        quiz.style.display = quiz.style.display === "none" ? "block" : "none";
+    }
+
+    function processQuiz() {
+        const selectedTags = new Set();
+        const checkboxes = document.querySelectorAll('#quiz-container input[type="checkbox"]:checked');
+
+        checkboxes.forEach(cb => {
+            const tags = cb.dataset.tags.split(',');
+            tags.forEach(tag => selectedTags.add(tag.trim()));
+        });
+
+        // Now pre-select adjustments matching those tags
+        adjustments.forEach(adj => {
+            const match = adj.tags.some(tag => selectedTags.has(tag));
+            if (match) {
+            selectedAdjustmentsState[adj.name] = {
+                checked: true,
+                comment: selectedAdjustmentsState[adj.name]?.comment || ''
+            };
+            }
+        });
+
+        renderAdjustments();
+
+        // Optional: Scroll to top of adjustments list
+        document.getElementById("adjustment-list").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function openModal(id) {
+        document.getElementById(id).classList.remove("hidden");
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.add("hidden");
+    }
+
+    function generateRecommendations() {
+        const selectedTags = new Set();
+        const quizCheckboxes = document.querySelectorAll('#quiz-modal input[type="checkbox"]:checked');
+        quizCheckboxes.forEach(cb => {
+            cb.dataset.tags.split(',').forEach(tag => selectedTags.add(tag.trim()));
+        });
+
+        const form = document.getElementById('recommendation-form');
+        form.innerHTML = '';
+
+        adjustments.forEach(adj => {
+            const match = adj.tags.some(tag => selectedTags.has(tag));
+            if (match) {
+            const checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            checkbox.value = adj.name;
+            checkbox.checked = true;
+
+            const label = document.createElement('label');
+            label.appendChild(checkbox);
+            label.append(` ${adj.name}`);
+
+            const desc = document.createElement('p');
+            desc.textContent = adj.description;
+            desc.style.fontSize = '0.9em';
+            desc.style.marginTop = '0';
+            desc.style.marginBottom = '1em';
+            desc.style.color = '#555';
+
+            form.appendChild(label);
+            form.appendChild(desc);
+            }
+        });
+
+        closeModal('quiz-modal');
+        openModal('recommendations-modal');
+    }
+
+    function confirmRecommendations() {
+        const checks = document.querySelectorAll('#recommendation-form input[type="checkbox"]:checked');
+        checks.forEach(cb => {
+            const name = cb.value;
+            selectedAdjustmentsState[name] = {
+            checked: true,
+            comment: selectedAdjustmentsState[name]?.comment || ''
+            };
+    });
+
+    renderAdjustments();
+    closeModal('recommendations-modal');
+
+    document.getElementById("adjustment-list").scrollIntoView({ behavior: "smooth" });
+    }
+
+  // Save and load from JSON text
+
+    function saveToFile() {
+        const supportInputs = document.querySelectorAll('.custom-support');
+        const detailInputs = document.querySelectorAll('.custom-details');
+        const custom = [];
+
+        for (let i = 0; i < supportInputs.length; i++) {
+            const title = supportInputs[i].value.trim();
+            const detail = detailInputs[i].value.trim();
+            if (title) {
+            custom.push({ head: title, detail });
+            }
+        }
+
+        const saveData = JSON.stringify({
+            adjustments: selectedAdjustmentsState,
+            custom: custom
+        }, null, 2);
+
+        const blob = new Blob([saveData], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "arcc_summary.txt";
+        link.click();
+    }
+
+    function loadFromFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            try {
+            const loaded = JSON.parse(e.target.result);
+            loadDataToState(loaded);
+            } catch (err) {
+            alert("Invalid file format.");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function loadFromText() {
+        const text = document.getElementById("load-text").value;
+        try {
+            const loaded = JSON.parse(text);
+            loadDataToState(loaded);
+        } catch (err) {
+            alert("Invalid JSON string.");
+        }
+        }
+
+    function loadDataToState(data) {
+        // Restore adjustments
+        const adjData = data.adjustments || {};
+        for (let key in adjData) {
+            selectedAdjustmentsState[key] = {
+            checked: adjData[key].checked,
+            comment: adjData[key].comment
+        };
+    }
+
+  // Restore custom adjustments
+    const container = document.getElementById('custom-support-container');
+    container.innerHTML = ""; // clear old ones
+
+    const custom = data.custom || [];
+    custom.forEach(entry => {
+        const wrapper = document.createElement('div');
+        wrapper.style.marginBottom = "1em";
+
+        const input = document.createElement('input');
+        input.type = "text";
+        input.placeholder = "e.g., Quiet workspace";
+        input.className = "custom-support";
+        input.value = entry.head || "";
+
+        const textarea = document.createElement('textarea');
+        textarea.rows = 3;
+        textarea.cols = 50;
+        textarea.placeholder = "Additional details...";
+        textarea.className = "custom-details";
+        textarea.value = entry.detail || "";
+
+        wrapper.appendChild(document.createTextNode("Custom adjustment: "));
+        wrapper.appendChild(input);
+        wrapper.appendChild(document.createElement("br"));
+        wrapper.appendChild(document.createTextNode("Details: "));
+        wrapper.appendChild(textarea);
+
+        container.appendChild(wrapper);
+    });
+
+    renderAdjustments();
+    }
+
+  // Quiz Adjustments results
+    const quizAnswerToAdjustments = {
+        write_structure: ["Templates for documentation"],
+        write_translate: ["Dictation software (Microsoft Teams / Word / Outlook)"],
+        write_spelling: ["Spell check software"],
+        write_memory: ["Access to examples of completed documentation"],
+        write_physical: ["Dictation software", "Modified break schedule"],
+        write_numbers: ["Unit conversion charts", "Use of a calculator"],
+
+        verbal_noise: ["Noise-cancelling earphones / headphones"],
+        verbal_words: ["Repeat or rephrase information"],
+        verbal_meaning: ["Combination of verbal and written information / feedback"],
+        verbal_context: ["Direct questions"],
+        verbal_tired: ["Movement breaks"],
+        verbal_forget: ["Email summarising important points following a meeting"],
+        verbal_action: ["Support to prioritise tasks"],
+
+        notes_hearing: ["Preferential seating in meetings/training", "Closed captioning"],
+        notes_paraphrase: ["Combination of verbal and written information / feedback"],
+        notes_focus: ["Modified break schedule"],
+        notes_order: ["Templates for documentation"],
+        notes_physical: ["Dictation software"],
+
+        assess_rapport: ["Soft skills support"],
+        assess_tone: ["Soft skills support"],
+        assess_physical: ["Additional opportunities to practice physical procedures"],
+        assess_memory: ["Memory aids: Assessments"],
+        assess_notes: ["Dictation software", "Stenomask"],
+        assess_hearing: ["Noise-cancelling earphones / headphones", "Repeat or rephrase information"],
+        assess_plan: ["Support to prioritise tasks"],
+        assess_timing: ["Visible clocks (analogue / digital)"],
+
+        focus_noise: ["Earplugs", "Advance warning for loud noises"],
+        focus_switching: ["Support to prioritise tasks"],
+        focus_repetitive: ["Movement breaks"],
+        focus_screen: ["Anti-glare screens"],
+        focus_crowding: ["Working area with more space"],
+
+        error_word: ["Memory aids: Medication"],
+        error_numbers: ["Unit conversion charts"],
+        error_paragraph: ["Text-to-speech", "Templates for documentation"],
+        error_tired: ["Modified break schedule"],
+        error_noise: ["Quiet place to complete documentation"],
+        error_multitask: ["Support to prioritise tasks"],
+
+        space_find: ["Environmental orientation on first day"],
+        space_miss: ["Access to quiet room"],
+        space_obstacles: ["Familiarisation with equipment"],
+        space_unknown: ["Induction booklet"],
+        space_rearrange: ["Assigned (anchor) desk (if hotdesking)"],
+        space_forgot: ["Phone reminders"],
+        space_label_numbers: ["Unit conversion charts"],
+        space_label_words: ["Materials printed on matt paper"],
+    };
+
+  // Quiz Recommendations
+    function generateRecommendations() {
+        const selectedAnswers = Array.from(document.querySelectorAll('#quiz-modal input[type="radio"]:checked'))
+            .map(input => input.value);
+
+        const adjustmentsSet = new Set();
+        selectedAnswers.forEach(answerID => {
+            const mapped = quizAnswerToAdjustments[answerID] || [];
+            mapped.forEach(adjustment => adjustmentsSet.add(adjustment));
+        });
+
+        const form = document.getElementById('recommendation-form');
+        form.innerHTML = "";
+
+        adjustments.forEach(adj => {
+            if (adjustmentsSet.has(adj.name)) {
+            const checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            checkbox.value = adj.name;
+            checkbox.checked = true;
+
+            const label = document.createElement('label');
+            label.appendChild(checkbox);
+            label.append(` ${adj.name}`);
+
+            const desc = document.createElement('p');
+            desc.textContent = adj.description;
+            desc.style.fontSize = '0.9em';
+            desc.style.marginTop = '0';
+            desc.style.marginBottom = '1em';
+            desc.style.color = '#555';
+
+            form.appendChild(label);
+            form.appendChild(desc);
+            }
+        });
+
+        closeModal('quiz-modal');
+        openModal('recommendations-modal');
+    }
+
+
+
+  // 🚀 Initialise
+
+  setupFilters();
+  renderAdjustments();
+  setupToggleAllButton();
+  setupFilterToggles();
+  setupSearch();
+</script>
+
+<footer style="margin-top: 3em; padding-top: 1em; border-top: 1px solid #ccc; font-size: 0.9em; color: #555; text-align: center;">
+    <p>
+      This tool is licensed under the 
+      <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color: #78206E; text-decoration: none;">
+        CC BY-NC 4.0 Licence
+      </a> — you may share and adapt it, but not use it commercially.
+    </p>
+  </footer>
+
+</body>
+</html>
