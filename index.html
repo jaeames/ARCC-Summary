@@ -435,6 +435,7 @@
         <h3 class="collapsible-heading">Professions</h3>
         <div class="filter-group" data-group="professions">
           <span class="filter-checkbox" data-tag="nursing">☐ Nursing</span><br>
+          <span class="filter-checkbox" data-tag="pharmacy">☐ Pharmacy</span><br>
           <span class="filter-checkbox" data-tag="dietetics">☐ Dietetics</span><br>
           <span class="filter-checkbox" data-tag="ODP">☐ ODP</span><br>
           <span class="filter-checkbox" data-tag="orthoptics">☐ Orthoptics</span><br>
@@ -725,17 +726,17 @@ const adjustments = [
 {
  name: "Access to examples of completed documentation",
   description: "Seeing what a finished form looks like can make it easier to understand what to do and reduce the chance of mistakes.",
-  tags: ["practices","information","reading and writing","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","information","reading and writing","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Access to quiet room",
   description: "A quiet, low-traffic space can reduce noise and activity levels, making it easier to concentrate, manage auditory sensitivity, or take medication in private.",
-  tags: ["environment","sensory","auditory","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["environment","sensory","auditory","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Accessible font types",
   description: "Using clear, well-spaced fonts - such as Arial, Calibri, or other fonts designed for readability - can reduce visual stress and make reading easier for people who struggle with standard formatting.",
-  tags: ["information","software","reading and writing","sensory","information processing","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","software","reading and writing","sensory","information processing","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Additional opportunities to practice physical procedures",
@@ -745,27 +746,27 @@ const adjustments = [
 {
  name: "Additional time for documentation",
   description: "Allowing extra time for documentation can help with spelling, typing, or structuring information without rushing. Provide feedback if they have included too much information, or if there are more concise ways to document specific observations or actions (e.g., ‘the patient was speaking very slowly and quietly’ > ‘speech was slow and quiet’).",
-  tags: ["practices","support","reading and writing","memory","organisation and time keeping","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","support","reading and writing","memory","organisation and time keeping","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Adjusted start/end time",
   description: "Adjusting shifts to begin or end slightly earlier or later for people with fatigue, travel needs (such as avoiding public transport at peak times), or time-sensitive medication.",
-  tags: ["practices","fatigue","organisation and time keeping","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","fatigue","organisation and time keeping","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Adjustments to uniform",
   description: "Changes to the standard uniform can reduce discomfort from sensory issues or physical health conditions.",
-  tags: ["equipment","environment","sensory","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT"]
+  tags: ["equipment","environment","sensory","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","pharmacy"]
 },
 {
  name: "Allocated device / laptop",
   description: "Having consistent access to a personal device avoids delays in inputting documentation from memory, and allows use of needed software or accessibility settings.",
-  tags: ["equipment","assistive technology","software","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","ward","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts"]
+  tags: ["equipment","assistive technology","software","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","ward","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Allocation to site close to home",
   description: "If the placement has multiple bases or allows for insight visits / spoke placements, working from a site closer to home can make travel more predictable, reduce exhaustion from overstimulation (e.g., noise, crowds, motion), and reduce the impact of long commutes on fixed routines like taking prescribed medication.",
-  tags: ["practices","environment","physical accessibility","fatigue","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","environment","physical accessibility","fatigue","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Amplified stethoscope",
@@ -775,142 +776,147 @@ const adjustments = [
 {
  name: "Anti-glare screens",
   description: "These reduce screen brightness or reflection, which can help with headaches, eye strain, or visual sensitivity.",
-  tags: ["equipment","environment","sensory","reading and writing","maths and numbers","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts"]
+  tags: ["equipment","environment","sensory","reading and writing","maths and numbers","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Assigned (anchor) desk (if hotdesking)",
   description: "Having a set workspace can make it easier to use specialist equipment or software, avoids repeated setup and disruption from switching desks, and reduces problems with coordination or distress from unpredictable environments.",
-  tags: ["environment","practices","sensory","concentration","uncertainty","community","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT"]
+  tags: ["environment","practices","sensory","concentration","uncertainty","community","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","pharmacy"]
 },
 {
  name: "Closed captioning",
   description: "Captions display spoken words as text, which helps people who miss or mishear speech due to auditory processing difficulties, struggle to follow fast conversations, or need a written version to refer back to. These should be enabled during online meetings (e.g., Teams, Zoom), shared with video content, or used in person through apps like Teams or phone-based captioning tools.",
-  tags: ["assistive technology","software","auditory","sensory","concentration","information processing","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","software","auditory","sensory","concentration","information processing","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Coloured overlays",
   description: "Transparent coloured sheets reduce glare and visual stress, making printed text easier to read for people who struggle with bright contrast, moving or blurring letters, or visual discomfort when reading.",
-  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Combination of verbal and written information / feedback ",
   description: "Providing both spoken and written information makes it easier to understand, retain, and refer back to important details.",
-  tags: ["information","support","auditory","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","support","auditory","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Device to work from home",
   description: "Access to a secure laptop or device at home allows people to complete tasks remotely when travel or placement conditions create barriers. This should be arranged in advance with the practice learning team.",
-  tags: ["equipment","environment","practices","physical accessibility","fatigue","sensory","concentration","organisation and time keeping","information and time keeping","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts"]
+  tags: ["equipment","environment","practices","physical accessibility","fatigue","sensory","concentration","organisation and time keeping","information and time keeping","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Dictation software (any)",
   description: "Dictation tools let someone speak instead of type, which can reduce fatigue or help with spelling or handwriting difficulties. This should be installed and tested before placement starts.",
-  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Dictation software (Dragon)",
   description: "Dragon is a speech-to-text programme that works well for people who need advanced voice control. Dragon Medical is compatible with most Electronic Patient Record software.",
-  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Dictation software (Microsoft Teams / Word / Outlook)",
   description: "Built-in dictation tools in Microsoft apps can be used to speak instead of type, and using an account linked to the placement provider (e.g., @nhs.net) helps maintain confidentiality.",
-  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","software","reading and writing","concentration","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Direct questions",
   description: "During assessments or reflective discussions, asking direct rather than open-ended or abstract questions makes it easier for people to understand what is being asked and how to respond. This reduces misunderstandings caused by interpreting the question differently from how it was intended. For example, instead of 'How did that go?', a supervisor might ask, 'What clinically relevant observations of the patient did you make?'",
-  tags: ["support","practices","communication","uncertainty","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["support","practices","communication","uncertainty","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Earplugs",
   description: "Wearing earplugs can reduce background noise, sensory irritation, or pain from loud environments. Disposable earplugs are more suitable for infection control, and sitting inside the ear canal prevents them from being grabbed. Different strength earplugs can be suitable in different environments - some can dull noise while not interfering with communication, others can effectively block out most noise, including speech.",
-  tags: ["equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Email summarising important points following a meeting ",
   description: "Providing a short written summary after key meetings (e.g., initial, midpoint, or final placement meetings, supervision, or feedback) helps people remember important information and avoid misunderstandings.",
-  tags: ["information","support","auditory","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","support","auditory","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Environmental orientation on first day",
   description: "A walk-through of key areas (toilets, break spaces, exit routes, documentation areas) helps reduce stress and uncertainty, especially for people who find new environments overwhelming or hard to navigate.",
-  tags: ["environment","information","support","auditory","sensory","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["environment","information","support","auditory","sensory","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Familiarisation with equipment",
   description: "Letting people try out equipment before using it with patients helps those who need more time to plan physical movements or adjust to manual tasks. This can be arranged during quieter periods. Offer concise checklist-style guides for equipment setup and use to support procedural memory.",
-  tags: ["equipment","practices","support","information processing","uncertainty","coordination","sensory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+  tags: ["equipment","practices","support","information processing","uncertainty","coordination","sensory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","pharmacy"]
 },
 {
  name: "Familiarisation with software",
   description: "Being shown how to use a system and given written guides or checklists can reduce mistakes and delays.",
-  tags: ["software","practices","support","information processing","uncertainty","reading and writing","maths and numbers","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["software","practices","support","information processing","uncertainty","reading and writing","maths and numbers","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Fidget tools",
   description: "Items appropriate for the placement (accounting for infection control and risk assessments) that provide sensory input to regulate responses in both overstimulating environments (e.g., to avoid sensory overload) and understimulating settings (e.g., to maintain concentration). Can be worn on a lanyard or ID holder if pockets must remain empty or arms bare below the elbow.",
-  tags: ["equipment","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Flexible shifts",
   description: "Flexibility with shift patterns (earlies, lates, long days, nights, etc) and days on/off can help manage energy levels, appointments and medication, or responsibilities outside of placement.",
-  tags: ["practices","fatigue","organisation and time keeping","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+  tags: ["practices","fatigue","organisation and time keeping","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","pharmacy"]
 },
 {
  name: "Give timetable / rota at least four weeks in advance",
   description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
-  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Give timetable / rota at least one week in advance",
   description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
-  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Give timetable / rota at least two weeks in advance",
   description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
-  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Give timetable / rota in advance",
   description: "Having the rota ahead of time makes it easier to plan transport, medication, or other responsibilities outside of placement, and reduces uncertainty.",
-  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","practices","organisation and time keeping","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Induction booklet",
   description: "An induction booklet should include information like shift patterns, documentation format (e.g., handwritten or electronic), dress code, parking, expected tasks, and the layout of the placement area. When people receive this in advance, it allows them to contact the practice learning team before placement starts if any adjustments are needed - rather than arriving unprepared and waiting days or weeks for support.",
-  tags: ["information","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+},
+{
+ name: "Left/right posters",
+  description: "for people with difficulty with directions, having visual reminders of left/right, especially when needing to mirror to patient's left or right. Can be especially helpful in professions like orthoptics, physio, podiatry, etc, where assessing and documenting differences in functioning between patient's left and right eye / limb / appendage etc is common and very important to distinguish correctly",
+  tags: ["equipment","coordination","maths and numbers","memory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
 },
 {
  name: "Materials printed on coloured paper",
   description: "Using coloured paper can make reading easier for people who experience visual stress or find high-contrast text difficult.",
-  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Materials printed on matt paper",
   description: "Materials printed on matt paper reduce shine and reflections that can make text harder to read. This can support people who experience visual discomfort, sensitivity to glare, or find glossy paper distracting or disorienting.",
-  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","reading and writing","sensory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Medication",
   description: "Some people need to carry, store, or take medication during placement, including at specific times. This may require a private space, or access to storage depending on the medication.",
-  tags: ["practices","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Memory aids: ",
   description: "Memory aids reduce the need to rely on recall during tasks that involve specific numbers, steps, or scores.",
-  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Memory aids: Assessments",
   description: "Structured prompts help people gather information without missing key details. Examples include SOAP (‘patient Said’ / I ‘Observed’), I AM A STAR (mental state exam), SOCRATES (pain), and AMPLE (trauma). These can be printed and kept on hand, or added to notes, shift folders, or computers.",
-  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","OT","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","OT","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Memory aids: Documentation",
   description: "Guides or checklists help people know what to include in case notes and how to structure it. Examples include prompts like: who you spoke to (name, role, location), what they said or asked, what you agreed, and any actions to take. These can be printed and kept on hand, or added to notes, shift folders, or computers.",
-  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Memory aids: Exposure factors",
@@ -920,7 +926,7 @@ const adjustments = [
 {
  name: "Memory aids: Medication",
   description: "Let people know which medications are commonly used in the placement area or role, allowing time to process and learn them. Support can include providing or helping the person create reference notes summarising medication names, indications, contraindications, dosage ranges, and interactions, grouped by class or colour-coded for ease of use.",
-  tags: ["equipment","information","memory","maths and numbers","information processing","concentration","uncertainty","nursing","ODP","OT","paramedicine","physiotherapy","podiatry"]
+  tags: ["equipment","information","memory","maths and numbers","information processing","concentration","uncertainty","nursing","ODP","OT","paramedicine","physiotherapy","podiatry","pharmacy"]
 },
 {
  name: "Memory aids: NEWS2 cards",
@@ -930,62 +936,62 @@ const adjustments = [
 {
  name: "Memory aids: Safety checks",
   description: "Prompts help people follow correct steps in safety-critical tasks. Examples include the 6 Rs of medication administration, radiography checks (identity, contrast reaction, LMP, metal), and risk assessment questions. These can be printed and kept on hand, or added to notes, shift folders, or computers.",
-  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","ODP","OT","paramedicine","physiotherapy","podiatry","radiography"]
+  tags: ["equipment","information","memory","information processing","concentration","uncertainty","nursing","ODP","OT","paramedicine","physiotherapy","podiatry","radiography","pharmacy"]
 },
 {
  name: "Modified break schedule",
   description: "Some people benefit from taking breaks at different intervals to manage fatigue, sensory needs, or medical conditions. This may involve splitting a standard break into shorter periods or shifting break times slightly.",
-  tags: ["practices","auditory","memory","fatigue","communication","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","auditory","memory","fatigue","communication","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Movement breaks",
   description: "Short periods of movement (e.g., stretching, walking, climbing stairs) during desk-based roles can improve focus, reduce agitation, and increase energy. These should be feasible within infection control (maintaining a sterile field) and safety requirements.",
-  tags: ["practices","concentration","information processing","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","concentration","information processing","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Named supervisor / educator",
   description: "Some professions do not allocate a student to a single named supervisor. People who need adjustments or a named point of contact for placement issues may require a named educator who is present within the placement team (not a member of the separate practice learning team).",
-  tags: ["practices","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","radiography"]
+  tags: ["practices","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","radiography","pharmacy"]
 },
 {
  name: "No (or warning for) loud noises",
   description: "Auditory hypersensitivity can cause people to experience pain or disorientation from sudden loud sounds. Advance warning (e.g., before testing alarms or approaching an MRI machine) allows them to manage or prepare for this.",
-  tags: ["support","practices","auditory","sensory","uncertainty","concentration","information processing","nursing","ODP","OT","paramedicine","physiotherapy","radiography","SLT","therapeutic arts"]
+  tags: ["support","practices","auditory","sensory","uncertainty","concentration","information processing","nursing","ODP","OT","paramedicine","physiotherapy","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Noise-cancelling earphones / headphones",
   description: "Noise-cancelling earphones/headphones can reduce background noise, sensory irritation, or pain from loud environments while not affecting speech or specific noises like alarms.",
-  tags: ["assistive technology","equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Phone reminders",
   description: "People with organisation and time keeping or memory difficulties often use phone reminders to support 'prospective memory', i.e. remembering to do something in the future. If a placement location cannot provide an alternative reminder / alarm system, use of phone reminders for tasks to be done at set times is reasonable. If phones are not usually allowed on the ward, mobile signal and Wifi can be turned off.",
-  tags: ["equipment","assistive technology","practices","memory","concentration","organisation and time keeping","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","assistive technology","practices","memory","concentration","organisation and time keeping","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
- name: "Preferential seating in meetings/training",
+ name: "Preferential seeting in meetings/training",
   description: "People with auditory processing difficulties may benefit from sitting close to the speaker - e.g., at the front in training sessions or centrally during meetings - to improve clarity of sound and minimise competing noise.",
-  tags: ["practices","environment","auditory","sensory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","environment","auditory","sensory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Pre-placement visit",
   description: "A pre-placement visit gives people the chance to identify barriers that may not be obvious to supervisors, especially where the student has access needs the supervisor does not - such as noticing how a loud ward might affect someone with auditory processing difficulties. It also provides time to contact the practice learning team or arrange equipment, software, or other adjustments in advance, and serves as a practice run for the journey to reduce uncertainty or organisational difficulties on the first day.",
-  tags: ["environment","physical accessibility","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["environment","physical accessibility","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Quiet place to complete documentation",
   description: "Offer access to a quiet, low-traffic area (e.g., side room, staff base during quieter times) for completing documentation without interruptions or background noise.",
-  tags: ["environment","auditory","reading and writing","concentration","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["environment","auditory","reading and writing","concentration","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Repeat or rephrase information",
   description: "People with auditory or information processing difficulties may need spoken information repeated or explained in a different way to avoid misunderstanding.",
-  tags: ["support","information","auditory","concentration","information processing","fatigue","communication","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["support","information","auditory","concentration","information processing","fatigue","communication","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Rest breaks",
   description: "Allowing short breaks or switching to quieter or less physical tasks - such as doing paperwork or transporting samples - can help manage fatigue, pain, or sensory sensitivity during a shift.",
-  tags: ["fatigue","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["fatigue","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Rest breaks during surgery",
@@ -995,17 +1001,17 @@ const adjustments = [
 {
  name: "Safety information in alternative format",
   description: "Provide health and safety information (e.g., fire evacuation, resuscitation protocols) in an accessible format, such as screen reader–compatible documents or coloured paper. This may need to be arranged through the practice learning team.",
-  tags: ["information","reading and writing","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","reading and writing","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Soft skills support",
   description: "Soft skills like small talk, body language, or tone of voice are rarely taught directly but are often expected in healthcare. Students with communication differences may not pick these up intuitively, especially if feedback focuses on outcomes rather than unspoken expectations (e.g., being told to 'build rapport' without being shown how). Many supervisors developed these skills unconsciously and may not find it easy to explain them to others. Support could include things like explaining when and how to use certain phrases (e.g., 'Would it be okay if I...'), modelling specific interactions (e.g., how to introduce yourself on a ward round, ways of responding to a distressed patient), or offering links to practical resources (e.g., online videos of actual patient interactions, shared with patient consent).",
-  tags: ["information","support","practices","communication","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","support","practices","communication","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Spell check software",
   description: "Spell check tools can reduce errors when typing and make written communication quicker and easier.",
-  tags: ["assistive technology","software","reading and writing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","software","reading and writing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Stenomask",
@@ -1015,47 +1021,52 @@ const adjustments = [
 {
  name: "Support to prioritise tasks",
   description: "Supervisors should support people to prioritise by explaining which tasks are more urgent and why. General rules (e.g., safety tasks before paperwork) help them apply this independently in future.",
-  tags: ["support","organisation and time keeping","uncertainty","memory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["support","organisation and time keeping","uncertainty","memory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Templates for documentation",
   description: "Templates reduce the cognitive effort needed to plan and structure written work by making clear what’s expected and where to put it. Formats like SOAP (which some people find easier to remember as ‘patient Said’ and ‘I Observed’) or I AM A STAR for mental state examinations can help people who benefit from extra structure or memory prompts.",
-  tags: ["information","reading and writing","memory","communication","concentration","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","reading and writing","memory","communication","concentration","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Text-to-speech",
   description: "Text-to-speech software reads text aloud, letting people process information by listening instead of reading. This can support people who experience visual stress, fatigue, or who find reading difficult.",
-  tags: ["assistive technology","software","equipment","reading and writing","sensory","fatigue","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["assistive technology","software","equipment","reading and writing","sensory","fatigue","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Time off for medical appointments / treatment",
   description: "Some people may need authorised time away from placement to attend regular medical appointments or receive treatment.",
-  tags: ["practices","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["practices","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Unit conversion charts",
   description: "Provide unit conversion charts to reduce reliance on memory and mental calculation, and lower the risk of error under time pressure or environmental stressors. Different charts may suit different settings - e.g., mg to mL conversions for medication prep, or imperial to metric and Celsius to Fahrenheit for outpatient clinics. Keep them in visible, relevant areas (e.g., drug trolleys, wall displays, or kits).",
-  tags: ["environment","information","maths and numbers","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT"]
+  tags: ["environment","information","maths and numbers","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","pharmacy"]
 },
 {
  name: "Use of a calculator",
   description: "Using a calculator supports people who have difficulty with mental arithmetic, especially in high-pressure or time-limited situations.",
-  tags: ["equipment","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["equipment","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Verbal information / feedback",
   description: "Give feedback or instructions verbally for people who process spoken input better than written text or have difficulty reading.",
-  tags: ["information","support","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","support","reading and writing","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+},
+{
+ name: "Visible clocks (analogue / digital)",
+  description: "for people with difficulty tracking time, having a clock in sight rather than needing to check watch/phone (especially on wards (infection control) or in appointments with patients (could make patient feel rushed)) as a visual reminder of time elapsed. some people may specifically need either analogue or digital",
+  tags: ["equipment","organisation and time keeping","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Working area with more space",
   description: "Extra physical space helps people who need to avoid crowding, move freely, or organise their materials and equipment in a consistent way.",
-  tags: ["environment","physical accessibility","coordination","information processing","sensory","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","therapeutic arts"]
+  tags: ["environment","physical accessibility","coordination","information processing","sensory","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","therapeutic arts","pharmacy"]
 },
 {
  name: "Written information / feedback",
   description: "Providing written information or feedback gives people a clear record they can process at their own pace and refer back to when needed.",
-  tags: ["information","support","auditory","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+  tags: ["information","support","auditory","memory","communication","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 }
 ];
 
@@ -1687,11 +1698,7 @@ function setupToggleAllButton() {
       This tool is licensed under the 
       <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color: #78206E; text-decoration: none;">
         CC BY-NC 4.0 Licence
-      </a> — you may share and adapt it, but not use it commercially.<br>
-      Questions or feedback? Email: 
-      <a href="mailto:james.eames.sshine@gmail.com" style="color: #78206E; text-decoration: none;">
-      james.eames.sshine@gmail.com
-    </a>
+      </a> — you may share and adapt it, but not use it commercially.
     </p>
   </footer>
 
