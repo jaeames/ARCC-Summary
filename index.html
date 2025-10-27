@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ARCC Summary</title>
+  <title>ARCC</title>
 
 <!-- ===================== -->
 <!--  CSS STYLES START  -->
 <!-- ===================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
   <style>
 /* Filters */
@@ -40,16 +46,8 @@
         display: none;
     }
 
-    .filters-side {
-        flex: 0 0 300px;
-    }
-
     #custom-support-container {
         margin-top: 1em;
-    }
-
-    .adjustments-side {
-        flex: 1;
     }
 
     .container {
@@ -68,15 +66,6 @@
 /*        border: 1px solid #ddd; */
 /*        border-radius: 8px; */
         padding: 1em 0;
-    }
-
-    .left-column {
-        flex: 0 0 300px;
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-/*        border-right: 1px solid #ccc; /* vertical divider */ */
-        padding-right: 1em;
     }
 
     .custom-adjustments input,
@@ -98,31 +87,22 @@
 
 /* Background and text font, size, and colour */
     body {
-        font-family: Verdana, "Segoe UI", Arial, sans-serif;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
         font-size: 16px;
         line-height: 1.6;
         color: #222;
-        background-color: #f9f9f9;
-        padding: 0.2em 1em 1em 1em;
+        background-color: #f3f3f4;
+        margin: 0;
+        padding: 0 0 1em 0;
     }
 
-/* Filters and Adjustments formatting */
-    .filters-side {
-        flex: 0 0 260px; /* fixed width */
-        max-width: 260px;
-        background-color: transparent;
-        border: none;
-        padding: 1em;
-    }
-
-    .adjustments-side {
-        flex: 1; /* fills remaining space */
-        background-color: transparent;
-/*        border: 1px solid #ddd; */
-        border-left: 1px solid #ccc; /* vertical divider */
-        padding: 1em;
-        padding-left: 2em; /* space from divider */
-        max-width: 800px;
+    /* Make font displayed in fields match font in body text */
+    textarea,
+    input,
+    button,
+    select {
+        font-family: inherit;   /* inherit from body (Inter, system-ui, etc.) */
+        font-size: 1em;
     }
 
     .section-divider {
@@ -170,65 +150,128 @@
 
     .adjustments-header {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;        /* stack the heading above the controls */
+        align-items: stretch;
+        gap: 0.5rem;
         margin-bottom: 1em;
     }
 
-/*    .selected-adjustment {
-        border-left: 4px solid #78206E;
-        background-color: #f3e6f2;
-    } */
+    /* Top heading line */
+    .adjustments-header h2 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    /* Container for button + search */
+    .adjustments-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* Button (left) */
+    .toggle-details {
+        flex: 0 0 auto;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 0.45em 1em;
+    }
+
+    /* Search bar (right) */
+    #adjustment-search {
+        flex: 0 0 260px;
+        font-size: 0.95rem;
+        padding: 0.4em 0.8em;
+        border-radius: 999px;
+        border: 1px solid #ddd;
+        background-color: #fafafa;
+        transition: background-color 0.2s ease;
+    }
+
+    #adjustment-search:focus {
+        background-color: #f0f0f0;
+        outline: 2px solid #822BD9;
+        outline-offset: 2px;
+    }
+
 
 /* Titles and headings */
 
-    .page-header {
-        color: #78206E;
-        margin-top: -1.5em;
-        padding-top: 0;
+  /* Purple header band */
+  /* linear gradient */
+/*  .hero {
+        background: linear-gradient(180deg, #822BD9 0%, #6C1FB9 100%);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        color: #fff;
+        padding: 2.75rem 0 3.5rem;
+        margin: 0 0 1rem 0;
+    }
+*/
+  /* radial gradient */
+    .hero {
+        background: radial-gradient(circle at 25% 35%, #8f3de4, #6c1fb9 85%);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        color: #fff;
+        padding: 3rem 0 4rem;
+        margin: 0 0 1rem 0;
     }
 
-    .page-header h1 {
-        font-size: 2em;
-        position: relative;
-        padding-bottom: 0.4em;
-        margin-bottom: 1em;
+    .hero h1{
+        font-size:2.75rem;
+        margin:0 auto;
+        max-width:1184px;
+        padding:0 24px;
     }
 
-    .page-header h1::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 4px;
-        width: 90%;
-        background: linear-gradient(
-            to right,
-            #A02B93 0%,
-            #D7C8DA 30%,
-            #f9f9f9 100%
-        );
-    }
+    /* Match tool card left margin when tool cards stack */
+    @media (max-width: 900px) {
+        .hero h1 {
+            max-width: 640px;        /* match tool-row width */
+            padding-left: 16px;      /* match its side padding */
+            padding-right: 16px;
+        }
+    }    
+
+    /* Make the tool-row overlap the band a bit */
+    .tool-row{ margin-top:-2.25rem; }
 
     h2, h3 {
         margin-top: 0.3em;
-        border-left: 5px solid #A02B93;
+/*        border-left: 5px solid #A02B93; */
         padding-left: 0.5em;
-        color: #444;
+        color: #595959;
+    }
+
+    /* === Tighter spacing for Filters section (matches mock-up) === */
+    .filters-side {
+        line-height: 1.3; /* slightly tighter overall spacing */
     }
 
     .filters-side h2 {
-        margin-top: 0.3em;
-        margin-bottom: 0.5em;
-        color: #333;
+        margin-bottom: 0.4em;
     }
 
     .filters-side h3 {
-        margin-top: 1em;
-        font-size: 1.1em;
-        color: #333;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 0.2em;
+        margin-top: 0.8em;
+        margin-bottom: 0.25em;
+        font-size: 1em;
+    }
+
+    .filters-side input[type="checkbox"] {
+        margin-right: 0.35em;   /* small horizontal gap between box and label */
+        vertical-align: middle;
+    }
+
+    .filters-side label,
+    .filters-side input[type="checkbox"] {
+        display: inline-block;
+        margin: 0.1em 0;        /* reduces vertical spacing between rows */
+        line-height: 1.2;
+    }
+
+    .filters-side .clear-filters-button {
+        margin-bottom: 0.5em;   /* smaller gap below button */
     }
 
     .collapsible-heading::after {
@@ -241,17 +284,27 @@
     }
 
 /* Borders, cards, and shadows */
+
+/* === Adjusted divider alignment for adjustment boxes === */
     .adjustment-box {
-        padding: 0.6em 0.8em;
+        position: relative;              /* allows the pseudo-element to position inside */
+        border: none;                    /* remove full-width border */
+        padding: 0.6em 0.8em 0.8em 0.8em;
+        margin-bottom: 0;
         background: transparent;
-/*        border: 1px solid #eee; */
-        border-bottom: 1px solid #A02B93; /* soft accent bar */
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        margin-bottom: 0.6em;
         transition: background-color 0.2s ease;
+        z-index: 1;
+    }
+
+    .adjustment-box::after {
+        content: "";
+        position: absolute;
+        left: 0.8em;                     /* start under text (same as padding-left) */
+        right: 0;                        /* end flush on right */
+        bottom: 0;
+        height: 1px;
+        background-color: #A387B9;       /* purple divider */
+        z-index: 0;
     }
 
     .adjustment-description {
@@ -285,7 +338,7 @@
         border-radius: 5px;
         font-weight: 800;
         cursor: pointer;
-        font-family: Verdana, "Segoe UI", Arial, sans-serif;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
         font-size: 16px;
     }
 
@@ -349,6 +402,515 @@
         cursor: pointer;
     }
 
+  /* === Top tool cards === */
+    .tool-row{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    max-width:1184px;    /* aligns with lower cards */
+    margin: -4rem auto 1.25rem auto;
+    padding: 0 24px;     /* same side padding as cards */
+    }
+
+    .tool-card{
+      background:#fff;
+      border-radius:10px;          /* slight rounding to match your mock-up */
+      box-shadow:0 2px 6px rgba(0,0,0,.08);
+      padding:0.9rem 1rem 1rem 1rem;
+    }
+
+    .tool-card-head{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:0.5rem;
+    }
+
+    .tool-card h4{
+      font-size:1.05rem; font-weight:600; color:#666; margin:0;
+    }
+
+    .tool-icon{ opacity:.45; font-size:1.25rem; }
+
+    .tool-link{
+      display:block;
+      margin:.45rem 0;
+      padding:.45rem .75rem;
+      line-height:1.25;
+      border-radius:9999px;                       /* pill */
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);/* faint asymmetrical-ish edge */
+      background:transparent;
+      text-decoration:none;
+      color:#111;
+    }
+
+    .tool-link:hover{ 
+      background:#f1f1f1; 
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.28);
+      cursor:pointer;
+    }
+
+    .tool-link:focus-visible{
+      outline:2px solid #3498db;
+      outline-offset:2px;
+      background:#eef6ff;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.28);
+    }
+
+    /* small screens: let the cards wrap 2x2 */
+    @media (max-width: 900px){
+      .tool-row{ grid-template-columns: repeat(2, 1fr); }
+    }
+
+  /* === Custom (user-created) section === */
+    .custom-section.hidden { display:none; }
+
+    .custom-header{
+      display:flex; align-items:center; gap:.5rem;
+      background:transparent; border:0; padding:.25rem .5rem .5rem 0;
+      font: 600 0.8rem/1 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      letter-spacing:.04em; color:#666; cursor:pointer;
+    }
+
+    .custom-header .chev{ font-size:.95rem; color:#777; }
+    .custom-header .title{ text-transform:uppercase; }
+    .custom-header .count{ color:#888; }
+
+    #custom-list{ margin:.25rem 0 .75rem 0; }
+
+    .custom-row{
+      padding:.45rem .75rem;
+      border-bottom:1px solid #A387B9;
+      position:relative;
+    }
+
+    .custom-row:focus-within{ outline:2px solid #3498db; outline-offset:2px; }
+
+    .custom-row .row-title{ font-weight:600; }
+    .custom-row .row-detail{ margin:.25rem 0 0 0; font-size:.95rem; color:#555; }
+
+    .row-actions{
+      position:absolute; right:.5rem; top:.3rem;
+      display:flex; gap:.35rem; opacity:0; transition:opacity .15s ease;
+    }
+
+    .custom-row:hover .row-actions,
+    .custom-row:focus-within .row-actions{ opacity:1; }
+
+    .row-actions button{
+      background:#eee; color:#333; border:1px solid #ccc; border-radius:6px;
+      padding:.15rem .4rem; font-size:.85rem; cursor:pointer;
+    }
+
+    .row-actions button:hover{ background:#e6e6e6; }
+
+    .inline-edit{ display:grid; gap:.35rem; }
+    .inline-edit input, .inline-edit textarea{ width:100%; box-sizing:border-box; }
+    .inline-confirm{ display:flex; gap:.5rem; margin-top:.35rem; }
+    .inline-confirm .danger{ background:#c42a2a; color:#fff; border-color:#b01e1e; }
+    .inline-confirm .danger:hover{ background:#da3a3a; }
+
+  /* === Make Filters and Adjustments look like cards === */
+
+    body {
+      background-color: #E9ECEF; /* light grey background like mockup */
+    }
+
+    /* Card visuals for both panels */
+    .filters-side,
+    .adjustments-side {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        padding: 24px;
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+    }
+
+    /* Buttons and search bar match the card style a bit better */
+    .clear-filters-button,
+    .toggle-details,
+    #adjustment-search {
+      border-radius: 999px;           /* pill shape */
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      background-color: #fafafa;
+      transition: background-color 0.2s ease;
+    }
+
+    .clear-filters-button:hover,
+    .toggle-details:hover,
+    #adjustment-search:focus {
+      background-color: #f0f0f0;
+    }
+
+    /* Headings match the cleaner look */
+    .filters-side h2,
+    .adjustments-side h2 {
+      font-weight: 600;
+      color: #333;
+      margin-top: 0;
+    }
+
+    /* === CLEAN LAYOUT === */
+    .container.layout-container {
+        display: flex;
+        flex-wrap: wrap;         /* wrap instead of clipping */
+        align-items: flex-start;
+        gap: 1.25rem;
+        max-width: 1184px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* Left column – give it enough room for the padded card */
+    .left-column{
+        /* one of the 4 columns in the top grid:
+            (100% - 3 gaps) / 4  */
+        flex: 0 0 calc((100% - 3 * 1.25rem) / 4);
+        min-width: 260px;   /* keep it usable on smaller screens */
+    }
+
+    /* Right column – fills the rest and can shrink */
+    .adjustments-side {
+        flex: 1 1 0%;
+        min-width: 0;            /* prevents horizontal scroll */
+        border: 0;
+        padding: 24px;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* Keep side-by-side longer; stack only on narrower screens */
+    @media (max-width: 900px) {
+        .left-column,
+        .adjustments-side {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .adjustments-side { margin-top: 16px; }
+    }
+
+    /* Ensure alignment consistency on large screens */
+    @media (min-width: 901px) {
+        .adjustments-side {
+            padding-left: 24px;
+        }
+    }    
+
+    /* --- Hide the filters column on small screens, show floating button --- */
+    @media (max-width: 900px) {
+        /* hide static filters column */
+        .left-column {
+            display: none;
+    }
+
+    /* show it again when panel is open */
+    body.filters-open .left-column {
+            display: block;
+    }
+
+    /* show floating button on small screens */
+    .filters-fab {
+            display: flex;
+    }
+    }
+
+    /* --- Hide floating button on large screens --- */
+    @media (min-width: 901px) {
+    .filters-fab {
+            display: none !important;
+    }
+    }
+
+    /* === Floating Filters Button (mobile toggle) === */
+
+        /* Base button appearance (hidden on desktop) */
+        .filters-fab {
+            position: fixed;
+            bottom: 5.25rem;
+            right: 1.25rem;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #822BD9;
+            color: #fff;
+            border: none;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+            display: none; /* hide by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1200;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .filters-fab:hover {
+            background: #A02B93;
+        }
+
+        /* Only show it on smaller screens */
+        @media (max-width: 900px) {
+        .filters-fab { display: flex; }
+        }
+
+        /* Backdrop that covers the screen when filters are open */
+        .filters-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 1190;
+            display: none;
+        }
+
+        /* When filters are open */
+        body.filters-open .filters-backdrop {
+            display: block;
+        }
+        body.filters-open .left-column {
+            position: fixed;
+            inset: 0;
+            z-index: 1201;
+            background: #fff;
+            overflow-y: auto;
+            padding: 1.5rem;
+            max-width: 100%;
+            height: 100%;
+        }
+
+        /* keep filter button visible when filters are open */
+        body.filters-open .filters-fab {
+            display: flex;
+            z-index: 1300; /* above backdrop */
+        }
+
+    /* --- Responsive stacking for Show All Details and Search --- */
+    @media screen and (max-width: 640px) {
+        .adjustments-header .adjustments-controls {
+            flex-wrap: wrap;              /* allow wrapping instead of force side-by-side */
+        }
+
+        .adjustments-header .toggle-details,
+        .adjustments-header #adjustment-search {
+            flex: 1 1 100%;               /* each takes full width on wrap */
+            max-width: 100%;
+        }
+
+        .adjustments-header #adjustment-search {
+            margin-top: 0.5rem;           /* gap below button */
+        }
+    }
+
+    /* === Limit overall layout width when tool cards are 2x2 === */
+    @media (max-width: 900px) and (min-width: 641px) {
+        .tool-row,
+        .container.layout-container {
+            max-width: 640px;        /* sets a comfortable centred column */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 16px;
+            padding-right: 16px;     /* small breathing room on sides */
+        }
+    }    
+
+    /* Settings FAB – uses same styling as filters button, offset upward */
+    .settings-fab {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: #822BD9;
+        color: #fff;
+        border: none;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1200;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .settings-fab:hover {
+        background: #A02B93;
+    }
+
+    .filters-fab svg,
+    .settings-fab svg {
+        width: 28px !important;
+        height: 28px !important;
+        flex-shrink: 0;
+    }
+    
+    /* === Settings Modal Layout === */
+
+    .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;  /* label left, control right */
+    align-items: center;
+    row-gap: 0.75rem;
+    column-gap: 1rem;
+    font-size: 0.95rem;
+    }
+
+    .settings-grid select {
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: inherit;
+    background-color: #fafafa;
+    }
+
+    .settings-grid select:focus {
+    outline: 2px solid #822BD9;
+    outline-offset: 1px;
+    background-color: #fff;
+    }
+
+    /* === Toggle Pill Buttons === */
+
+    .toggle-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    background-color: #eaeaea;
+    color: #333;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .toggle-pill.on {
+    background-color: #822BD9;
+    color: #fff;
+    border-color: #6C1FB9;
+    }
+
+    .toggle-pill:focus-visible {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+    }
+
+    /* Smaller screens: make it single-column for readability */
+    @media (max-width: 600px) {
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-grid > div {
+        margin-bottom: 0.4rem;
+    }
+    }
+
+    /* Themes */
+    /* Default hover */
+    .adjustment-box:hover { background: #f2edf1; }
+
+    /* Dark theme hover */
+    [data-theme="dark"] .adjustment-box:hover { background: #333; }
+
+    /* High contrast hover */
+    [data-theme="highContrast"] .adjustment-box:hover,
+    [data-theme="highContrast"] .adjustment-box:focus-within {
+    background: #FFD700 !important;
+    color: #000 !important; /* ensure header text flips to black */
+    border-color: #FFD700 !important;
+    }
+
+    /* High contrast text colours inside hovered boxes */
+    [data-theme="highContrast"] .adjustment-box:hover h3,
+    [data-theme="highContrast"] .adjustment-box:hover p,
+    [data-theme="highContrast"] .adjustment-box:hover label,
+    [data-theme="highContrast"] .adjustment-box:hover .adjustment-description,
+    [data-theme="highContrast"] .adjustment-box:focus-within h3,
+    [data-theme="highContrast"] .adjustment-box:focus-within p,
+    [data-theme="highContrast"] .adjustment-box:focus-within label,
+    [data-theme="highContrast"] .adjustment-box:focus-within .adjustment-description {
+    color: #000 !important; /* make all inner text black when hovered/focused */
+    }
+
+    /* === True Full-Page Focus Mode === */
+    #focus-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* height of visible focus strip */
+    pointer-events: none;
+    opacity: 0;
+    transition: none;
+    z-index: 10000; /* very top layer */
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+    }
+
+    body.focus-mode #focus-bar {
+    opacity: 1;
+    }
+
+    /* === Tutorial Overlay & Tooltip === */
+
+    .tutorial-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+    }
+
+    .tutorial-tooltip {
+    position: fixed;
+    background: #fff;
+    color: #222;
+    padding: 1.2em 1.4em;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    max-width: 340px;
+    z-index: 9999;
+    font-size: 1rem;
+    }
+
+    .tutorial-tooltip p {
+    margin: 0 0 1em 0;
+    line-height: 1.4;
+    }
+
+    .tutorial-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5em;
+    }
+
+    .tutorial-buttons button {
+    flex: 1;
+    padding: 0.5em 0.8em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    }
+
+    .tutorial-buttons .skip {
+    background: #e0e0e0;
+    color: #333;
+    }
+
+    .tutorial-buttons .next {
+    background: #78206E;
+    color: #fff;
+    }
+
+    .tutorial-highlight {
+    position: relative;
+    z-index: 9999 !important;
+    filter: none !important;
+    }
+
   </style>
 </head>
 
@@ -358,10 +920,68 @@
 
 <body>
 
+<div id="focus-bar" aria-hidden="true"></div>
+
 <!-- 🔹 Page Header -->
-<header class="page-header">
-  <h1>My ARCC Summary</h1>
+<header class="hero">
+  <h1>ARCC</h1>
 </header>
+
+<!-- === Top action cards (Quiz / Custom / Save-Load / Surveys) === -->
+<div class="tool-row">
+    <section class="tool-card" id="start-card">
+    <div class="tool-card-head">
+        <h4>Get Started</h4>
+        <span class="tool-icon" aria-hidden="true">📝</span>
+    </div>
+    <a class="tool-link" href="#" id="link-tutorial">Start Tutorial</a>
+    <a class="tool-link" href="#" id="link-quiz">Where to start?</a>
+    </section>
+
+  <section class="tool-card" id="custom-card">
+    <div class="tool-card-head">
+      <h4>Custom</h4>
+      <span class="tool-icon" aria-hidden="true">➕</span>
+    </div>
+    <a class="tool-link" href="#" id="link-custom">Add custom adjustments</a>
+  </section>
+
+  <section class="tool-card" id="save-card">
+    <div class="tool-card-head">
+      <h4>Save / Load</h4>
+      <span class="tool-icon" aria-hidden="true">☁️</span>
+    </div>
+    <a class="tool-link" href="#" id="link-save-pdf">Save to PDF</a>
+    <a class="tool-link" href="#" id="link-save-file">Save to file</a>
+    <a class="tool-link" href="#" id="link-load-file">Load from file</a>
+  </section>
+
+<!-- Hidden file picker for loading ARCC files -->
+<input type="file" id="arcc-file-loader" accept=".txt,.json" style="display:none;">
+
+  <section class="tool-card" id="external-card">
+    <div class="tool-card-head">
+      <h4>External Links</h4>
+      <span class="tool-icon" aria-hidden="true">📈</span>
+    </div>
+    <a class="tool-link" href="#" id="link-experience">Your experience on placement (survey)</a>
+    <a class="tool-link" href="#" id="link-SSHINE">SSHINE (website)</a>
+    <a class="tool-link" href="mailto:james.eames.sshine@gmail.com?subject=ARCC%20Feedback%20or%20Bug%20Report&body=Please%20describe%20the%20issue%20or%20suggestion%20below:%0D%0A%0D%0A">Feedback / Bug reports</a>
+<!--    <a class="tool-link" href="#" id="link-feedback">ARCC feedback</a> -->
+  </section>
+</div>
+
+<!-- Floating filter toggle button -->
+<button id="filtersToggle" class="fab filters-fab" aria-label="Toggle Filters Panel" aria-expanded="false">
+  <span class="material-icons" aria-hidden="true">filter_alt</span>
+</button>
+
+<button id="settingsToggle" class="fab settings-fab" aria-label="Open Settings">
+  <span class="material-icons" aria-hidden="true">settings</span>
+</button>
+
+<!-- Backdrop that dims the background when filters are open -->
+<div class="filters-backdrop" hidden></div>
 
 <!-- 🔹 Layout Container -->
 <div class="container layout-container">
@@ -369,8 +989,6 @@
   <!-- 🔹 Left Column: Filters + Custom Adjustments -->
   <div class="left-column">
     <div id="filters" class="filters-side">
-    
-        <button onclick="openModal('quiz-modal')" class="toggle-details">Where to Start: Quiz</button>
 
         <div id="quiz-container" style="display: none; margin-top: 1em; background: #f4f4f4; padding: 1em; border: 1px solid #ccc;">
           <h3>Quick Quiz</h3>
@@ -426,6 +1044,7 @@
           <span class="filter-checkbox" data-tag="organisation and time keeping">☐ Organisation and Time Keeping</span><br>
           <span class="filter-checkbox" data-tag="reading and writing">☐ Reading and Writing</span><br>
           <span class="filter-checkbox" data-tag="sensory">☐ Sensory</span><br>
+          <span class="filter-checkbox" data-tag="tics">☐ Tics</span><br>
           <span class="filter-checkbox" data-tag="uncertainty">☐ Uncertainty</span><br>
         </div>
       </div>
@@ -454,40 +1073,34 @@
     <!-- 🔹 Divider -->
     <div class="section-divider"></div>
 
-    <!-- 🔹 Custom Adjustments -->
-    <div class="custom-adjustments">
-      <h3>Add Custom Adjustments</h3>
-      <div id="custom-support-container">
-        <!-- New support fields will be added here -->
-      </div>
-      <button type="button" onclick="addCustomSupport()">Add</button>
-      <div style="margin-top: 1em;">
-      </div>
-    </div>
-
     <!-- 🔹 Divider -->
     <div class="section-divider"></div>
 
-    <!-- 🔹 Save button -->
-    <button onclick="saveSummary()">Save Summary</button>
-    <button onclick="saveToFile()">Save to File</button>
-    <button onclick="document.getElementById('load-file').click()">Load from File</button>
-    <input type="file" id="load-file" style="display: none" accept=".txt" onchange="loadFromFile(event)">
-    <br><br>
-    <textarea id="load-text" placeholder="Paste your save string here..." rows="3" style="width: 100%;"></textarea>
-    <button onclick="loadFromText()">Load from Text</button>
   </div>
 
 <!-- end of left-column -->
 
 <!-- 🔹 Right Column: Suggested Adjustments -->
     <div class="adjustments-side">
-        <div class="adjustments-header">
-            <h2>Suggested Adjustments</h2>
+      <div class="adjustments-header">
+        <h2>Suggested Adjustments</h2>
+        <div class="adjustments-controls">
             <button id="toggle-all-details" class="toggle-details">Show All Details</button>
+            <input type="text" id="adjustment-search" placeholder="Search adjustments...">
         </div>
-    <input type="text" id="adjustment-search" placeholder="Search adjustments..." style="width: 100%; padding: 0.5em; margin-bottom: 1em; font-size: 1em;">
-    <div id="adjustment-list"></div>
+      </div>
+
+      <!-- CUSTOM block (hidden until there is at least one item) -->
+      <section id="custom-section" class="custom-section hidden" aria-live="polite">
+        <button id="custom-toggle" class="custom-header" aria-expanded="true">
+          <span class="chev" aria-hidden="true">▾</span>
+          <span class="title">CUSTOM</span>
+          <span id="custom-count" class="count">(0)</span>
+        </button>
+        <div id="custom-list"></div>
+      </section>
+
+      <div id="adjustment-list"></div>
     </div>
 
 </div> <!-- end of layout-container -->
@@ -562,7 +1175,7 @@
       </div>
       
     
-    <!-- Recommendations Modal -->
+  <!-- Recommendations Modal -->
     <div id="recommendations-modal" class="modal hidden">
         <div class="modal-content">
         <span class="close" onclick="closeModal('recommendations-modal')">&times;</span>
@@ -572,7 +1185,65 @@
         </div>
     </div>
 
-</body>
+  <!-- Add Custom Adjustment Modal -->
+    <div id="custom-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('custom-modal')" aria-label="Close">&times;</span>
+        <h3 id="custom-modal-title">Add custom adjustment</h3>
+        <div class="inline-edit">
+          <label>
+            <span class="sr-only">Title</span>
+            <input id="custom-title-input" type="text" placeholder="Title (required)">
+          </label>
+          <label>
+            <span class="sr-only">Details</span>
+            <textarea id="custom-detail-input" rows="3" placeholder="Optional details"></textarea>
+          </label>
+          <div>
+            <button id="custom-add-btn">Add</button>
+            <button type="button" onclick="closeModal('custom-modal')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" id="closeSettings">&times;</span>
+        <h3>Accessibility & Display Settings</h3>
+
+        <button id="resetSettings" class="clear-filters-button" style="margin-bottom: 1rem;">
+        Reset to Defaults
+        </button>
+
+        <div class="settings-grid">
+        <div>Theme</div>
+        <div>
+            <select id="themeSelect">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="highContrast">High Contrast</option>
+            </select>
+        </div>
+
+        <div>Font Size</div>
+        <div>
+            <select id="fontSizeSelect">
+            <option value="normal">Normal</option>
+            <option value="large">Large</option>
+            <option value="xlarge">Extra Large</option>
+            </select>
+        </div>
+
+        <div>Focus Mode</div>
+        <div><button class="toggle-pill" id="toggleFocus">Off</button></div>
+
+        <div>Highlight Clickable Elements</div>
+        <div><button class="toggle-pill" id="toggleClickable">Off</button></div>
+        </div>
+    </div>
+    </div>
 
 
 <!-- ========================== -->
@@ -584,9 +1255,14 @@
   const selectedAdjustmentsState = {}; // Tracks selections across filter changes
 
   // 💾 Save Summary
+  let customItems = [];                // [{id, title, detail}]
+  let customCollapsed = false;         // remember collapse state
+
+  const uid = () => Math.random().toString(36).slice(2,9);
+
 
 function saveSummary() {
-  // Get selected adjustments
+  // Collect selected adjustments
   const selected = [];
 
   for (const adjName in selectedAdjustmentsState) {
@@ -594,102 +1270,122 @@ function saveSummary() {
     if (state.checked) {
       const adjustment = adjustments.find(a => a.name === adjName);
       const description = adjustment ? adjustment.description : "";
-      const comment = state.comment ? `<p><em>Comments:</em> ${state.comment}</p>` : "";
+      const comment = state.comment
+        ? `<p class="comment"><em>${state.comment}</em></p>`
+        : "";
 
-      const text = `
+      selected.push(`
         <div class="adjustment">
-          <strong>${adjName}</strong>
-          <p class="export-description">${description}</p>
+          <h3>${adjName}</h3>
+          <p>${description}</p>
           ${comment}
-        </div>
-      `;
-      selected.push(text);
-    }
-  };
-
-  // Get custom supports
-  const customBlocks = [];
-  const supportInputs = document.querySelectorAll('.custom-support');
-  const detailInputs = document.querySelectorAll('.custom-details');
-
-  for (let i = 0; i < supportInputs.length; i++) {
-    const title = supportInputs[i].value.trim();
-    const detail = detailInputs[i].value.trim();
-    if (title) {
-      customBlocks.push(`
-        <div class="adjustment">
-          <strong>${title}</strong>
-          ${detail ? `<p><em>Details:</em> ${detail}</p>` : ""}
         </div>
       `);
     }
   }
 
-  // Combine into HTML template
+  // Include custom adjustments
+  const customBlocks = customItems.map(it => `
+    <div class="adjustment">
+      <h3>${it.title}</h3>
+      ${it.detail ? `<p>${it.detail}</p>` : ""}
+    </div>
+  `);
+
+  // Merge both lists
+  const allAdjustments = [...selected, ...customBlocks];
+
+  // Build HTML template for export
   const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
     <meta charset="UTF-8">
-    <title>ARCC Summary Export</title>
+    <title>ARCC Export</title>
     <style>
-        body {
-        font-family: Verdana, sans-serif;
-        font-size: 16px;
+      body {
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        background: #ffffff;
         color: #222;
-        background: white;
-        padding: 2em;
-        }
-        h1 {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 2cm;
+      }
+
+      h1 {
         color: #78206E;
+        font-size: 2em;
+        margin-bottom: 0.3em;
         border-bottom: 2px solid #A02B93;
-        padding-bottom: 0.3em;
+        padding-bottom: 0.2em;
+      }
+
+      h2 {
+        color: #78206E;
+        font-size: 1.4em;
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+        border-bottom: 1px solid #A02B93;
+        padding-bottom: 0.1em;
+      }
+
+      h3 {
+        color: #000;
+        font-size: 1.1em;
+        margin-bottom: 0.3em;
+      }
+
+      p {
+        margin: 0.2em 0 0.8em 0;
+      }
+
+      .adjustment {
+        margin-bottom: 1.4em;
+        padding-bottom: 1.4em;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .comment {
+        color: #555;
+        margin-top: 0.4em;
+      }
+
+      @media print {
+        body {
+          margin: 1.5cm;
         }
-        .section {
-        margin-bottom: 2em;
-        }
-        .adjustment {
-        margin-bottom: 1em;
-        padding: 1em;
-        border: 1px solid #ccc;
-        border-left: 4px solid #A02B93;
-        background-color: #f9f9f9;
-        border-radius: 4px;
-        }
-        .adjustment p {
-        margin: 0.3em 0 0 0;
-        }
+      }
     </style>
-    </head>
-    <body>
-    <h1>My ARCC Summary</h1>
+  </head>
 
-    <div class="section">
-        <h2>Selected Adjustments</h2>
-        ${selected.length ? selected.join('') : "<p><em>None selected</em></p>"}
-    </div>
-
-    <div class="section">
-        ${customBlocks.length ? `
-        <div class="section">
-            ${customBlocks.join('')}
-    </div>
-    ` : ""}
-
-    </body>
-    </html>`;
-
-    const printWindow = window.open('', '_blank');
-    printWindow.document.open();
-    printWindow.document.write(htmlContent + `
-    <script>
-        window.onload = function() {
-        window.print();
-        };
-    <\/script>
-    `);
-    printWindow.document.close();
+  <body>
+    <h1>ARCC</h1>
+    <h2>Selected Reasonable Adjustments</h2>
+    ${
+      allAdjustments.length
+        ? allAdjustments.join("")
+        : "<p><em>No adjustments selected.</em></p>"
     }
+
+    <footer style="margin-top:2em; font-size:0.9em; color:#555;">
+      <p>Generated using the ARCC Tool for placement adjustments.</p>
+      <p>Licensed under <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank' style='color:#78206E; text-decoration:none;'>CC BY-NC 4.0</a>.</p>
+    </footer>
+  </body>
+  </html>`;
+
+  // Open in new tab and trigger print
+  const printWindow = window.open('', '_blank');
+  printWindow.document.open();
+  printWindow.document.write(htmlContent + `
+    <script>
+      window.onload = function() {
+        window.print();
+      };
+    <\/script>
+  `);
+  printWindow.document.close();
+}
 
 // Add custom adjustments
 
@@ -725,13 +1421,13 @@ function saveSummary() {
 const adjustments = [
 {
  name: "Access to examples of completed documentation",
-  description: "Seeing what a finished form looks like can make it easier to understand what to do and reduce the chance of mistakes.",
+  description: "Differences in information processing, reading comprehension, or working memory can make it harder to translate instructions into written work when the expected structure or level of detail is not demonstrated. Having a completed example provides a clear visual reference for what good documentation looks like. This reduces the risk of mistakes or omission of important information, while allowing the person to demonstrate their actual knowledge and clinical reasoning.",
   tags: ["practices","information","reading and writing","organisation and time keeping","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Access to quiet room",
-  description: "A quiet, low-traffic space can reduce noise and activity levels, making it easier to concentrate, manage auditory sensitivity, or take medication in private.",
-  tags: ["environment","sensory","auditory","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "A quiet, low-traffic space can reduce noise and activity levels, making it easier to concentrate, manage auditory sensitivity or tics, or take medication in private.",
+  tags: ["environment","sensory","auditory","tics","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Accessible font types",
@@ -739,14 +1435,19 @@ const adjustments = [
   tags: ["information","software","reading and writing","sensory","information processing","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
+ name: "Adapted positioning for physical procedures",
+  description: "During some tasks, a person may find it harder to keep their balance or control fine movements, either because of how their body responds in the moment or because of what is happening around them. Adapted positioning involves working with an educator to find a way of taking part that feels stable and safe - such as adjusting how close they are to a patient, where equipment is placed, or whether a task is done sitting or standing - so they can stay fully involved in learning without added risk.",
+  tags: ["assistive technology","equipment","environment","physical accessibility","information","practices","support","coordination","sensory","information processing","concentration","fatigue","tics","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","therapeutic arts"]
+},
+{
  name: "Additional opportunities to practice physical procedures",
-  description: "Extra chances to practise physical tasks can help with coordination and reduce mistakes for people who need more time to learn movements.",
-  tags: ["practices","support","physical accessibility","coordination","information processing","memory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+  description: "Extra chances to practise physical tasks can help with coordination and reduce mistakes for people who need more time to learn movements safely.",
+  tags: ["practices","support","physical accessibility","coordination","information processing","memory","tics","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
 },
 {
  name: "Additional time for documentation",
-  description: "Allowing extra time for documentation can help with spelling, typing, or structuring information without rushing. Provide feedback if they have included too much information, or if there are more concise ways to document specific observations or actions (e.g., ‘the patient was speaking very slowly and quietly’ > ‘speech was slow and quiet’).",
-  tags: ["practices","support","reading and writing","memory","organisation and time keeping","information processing","coordination","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "Allowing extra time for documentation can help with spelling, typing, and structuring information without rushing, and managing tics or fatigue. Provide feedback if they have included too much information, or if there are more concise ways to document specific observations or actions (e.g., ‘the patient was speaking very slowly and quietly’ > ‘speech was slow and quiet’).",
+  tags: ["practices","support","reading and writing","memory","organisation and time keeping","information processing","coordination","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Adjusted start/end time",
@@ -755,13 +1456,18 @@ const adjustments = [
 },
 {
  name: "Adjustments to uniform",
-  description: "Changes to the standard uniform can reduce discomfort from sensory issues or physical health conditions.",
-  tags: ["equipment","environment","sensory","ward","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","pharmacy"]
+  description: "Changes to the standard uniform can reduce discomfort from sensory issues and physical health conditions.",
+  tags: ["equipment","environment","sensory","ward","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","pharmacy"]
+},
+{
+ name: "Agreed variation in type of involvement",
+  description: "When needs or abilities vary from day to day, the student and supervisor can agree alternative ways to take part in activities so the student continues to engage in learning opportunities. This can be particularly important for students who may struggle to attend or take part in the main activities of a placement due to a fluctuating condition. These alternatives should continue to build the same skills and meet the same learning outcomes, even if a particular task is not suitable at that time (for example, observing and writing reflective notes on a procedure instead of performing it on a day when their coordination or concentration is reduced).",
+  tags: ["practices","support","fatigue","coordination","concentration","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
 },
 {
  name: "Allocated device / laptop",
   description: "Having consistent access to a personal device avoids delays in inputting documentation from memory, and allows use of needed software or accessibility settings.",
-  tags: ["equipment","assistive technology","software","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","ward","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts","pharmacy"]
+  tags: ["equipment","assistive technology","software","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","ward","tics","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Allocation to site close to home",
@@ -835,13 +1541,18 @@ const adjustments = [
 },
 {
  name: "Environmental orientation on first day",
-  description: "A walk-through of key areas (toilets, break spaces, exit routes, documentation areas) helps reduce stress and uncertainty, especially for people who find new environments overwhelming or hard to navigate.",
-  tags: ["environment","information","support","auditory","sensory","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "A walk-through of key areas (toilets, break spaces, exit routes, documentation areas) helps reduce stress and uncertainty, especially for people who find new environments overwhelming or hard to navigate. This also provides opportunity to identify useful locations, such as quiet areas or dimmer lighting.",
+  tags: ["environment","information","support","auditory","sensory","uncertainty","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+},
+{
+ name: "Facilitated team briefing",
+  description: "In some circumstances, it may be helpful for a trusted staff member (such as a practice educator, link lecturer, or senior colleague) to share agreed information about how a student is being supported in their learning. This is always done with the student’s consent and focuses only on practical details relevant to teamwork. It may be particularly useful if the student has experienced challenges on previous placements, or if there is concern that aspects of their support could be misinterpreted as a lack of motivation, confidence, or ability. Sharing this information early helps ensure all staff understand how to support the student fairly and consistently. In services that operate across shifts or locations, the information can be shared gradually through handovers or communication books.",
+  tags: ["practices","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
 },
 {
  name: "Familiarisation with equipment",
   description: "Letting people try out equipment before using it with patients helps those who need more time to plan physical movements or adjust to manual tasks. This can be arranged during quieter periods. Offer concise checklist-style guides for equipment setup and use to support procedural memory.",
-  tags: ["equipment","practices","support","information processing","uncertainty","coordination","sensory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","pharmacy"]
+  tags: ["equipment","practices","support","information processing","uncertainty","coordination","sensory","tics","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","pharmacy"]
 },
 {
  name: "Familiarisation with software",
@@ -850,8 +1561,8 @@ const adjustments = [
 },
 {
  name: "Fidget tools",
-  description: "Items appropriate for the placement (accounting for infection control and risk assessments) that provide sensory input to regulate responses in both overstimulating environments (e.g., to avoid sensory overload) and understimulating settings (e.g., to maintain concentration). Can be worn on a lanyard or ID holder if pockets must remain empty or arms bare below the elbow.",
-  tags: ["equipment","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "Items appropriate for the placement (accounting for infection control and risk assessments) that provide sensory input to regulate responses in both overstimulating environments (e.g., to avoid sensory overload) and understimulating settings (e.g., to maintain concentration). Some people also benefit from use of fidget tools in managing tics or repetitive motions. Can be worn on a lanyard or ID holder if pockets must remain empty or arms bare below the elbow.",
+  tags: ["equipment","sensory","concentration","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Flexible shifts",
@@ -881,12 +1592,17 @@ const adjustments = [
 {
  name: "Induction booklet",
   description: "An induction booklet should include information like shift patterns, documentation format (e.g., handwritten or electronic), dress code, parking, expected tasks, and the layout of the placement area. When people receive this in advance, it allows them to contact the practice learning team before placement starts if any adjustments are needed - rather than arriving unprepared and waiting days or weeks for support.",
-  tags: ["information","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  tags: ["information","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Left/right posters",
   description: "for people with difficulty with directions, having visual reminders of left/right, especially when needing to mirror to patient's left or right. Can be especially helpful in professions like orthoptics, physio, podiatry, etc, where assessing and documenting differences in functioning between patient's left and right eye / limb / appendage etc is common and very important to distinguish correctly",
   tags: ["equipment","coordination","maths and numbers","memory","nursing","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography"]
+},
+{
+ name: "Light lead apron/shielding",
+  description: "Some people experience physical effects linked to their neurodivergence (such as fatigue or reduced coordination) that make standard lead aprons difficult to wear safely or comfortably. Hypermobility, which commonly co-occurs with neurodevelopmental conditions, can also increase strain from heavy protective garments. Where needed, lighter lead aprons or alternative shielding can reduce the risk of pain or injury while maintaining full radiation safety. Arrange this in advance with the radiation protection supervisor or equivalent lead to ensure suitable equipment is available.",
+  tags: ["equipment","physical accessibility","fatigue","sensory","coordination","nursing","ODP","SLT","radiography"]
 },
 {
  name: "Materials printed on coloured paper",
@@ -941,17 +1657,17 @@ const adjustments = [
 {
  name: "Modified break schedule",
   description: "Some people benefit from taking breaks at different intervals to manage fatigue, sensory needs, or medical conditions. This may involve splitting a standard break into shorter periods or shifting break times slightly.",
-  tags: ["practices","auditory","memory","fatigue","communication","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  tags: ["practices","auditory","memory","fatigue","communication","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Movement breaks",
-  description: "Short periods of movement (e.g., stretching, walking, climbing stairs) during desk-based roles can improve focus, reduce agitation, and increase energy. These should be feasible within infection control (maintaining a sterile field) and safety requirements.",
-  tags: ["practices","concentration","information processing","fatigue","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "Short periods of movement (e.g., stretching, walking, climbing stairs) during desk-based or static roles can help to maintain attention, manage tics, and reduce fatigue. The breaks should be feasible within infection control (maintaining a sterile field) and safety requirements.",
+  tags: ["practices","concentration","information processing","fatigue","tics","nursing","dietetics","orthoptics","OT","prosthetics and orthotics","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Named supervisor / educator",
-  description: "Some professions do not allocate a student to a single named supervisor. People who need adjustments or a named point of contact for placement issues may require a named educator who is present within the placement team (not a member of the separate practice learning team).",
-  tags: ["practices","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","radiography","pharmacy"]
+  description: "Some professions do not allocate a student to a single named supervisor. People who need adjustments often benefit from having a named educator who is present within the placement team (not a member of the separate practice learning team), as a consistent point of contact to discuss adjustments and coordinate team awareness.",
+  tags: ["practices","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","tics","radiography","pharmacy"]
 },
 {
  name: "No (or warning for) loud noises",
@@ -964,24 +1680,29 @@ const adjustments = [
   tags: ["assistive technology","equipment","auditory","sensory","concentration","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
+ name: "PEEP (Personal Emergency Evacuation Plan)",
+  description: "If a student has any challenges that could affect their ability to leave the building safely during an emergency, this should be discussed with their practice educator to decide whether a PEEP is needed. For example, a student may find it difficult to understand speech over a fire alarm or be at risk in a crowded stairwell due to coordination or balance difficulties. PEEPs are not automatically created for students, but the placement provider is responsible for ensuring that safe evacuation arrangements are in place. If a plan is required, it is usually completed with support from the organisation’s health and safety or estates team, and should confirm which routes are suitable, how to call for help, and who will assist if needed. Anyone named in the plan (such as a Fire Marshal or designated colleague) should understand and agree to their role, including any communication needs such as giving directions by gesture or confirming understanding before evacuation.",
+  tags: ["information","physical accessibility","practices","support","auditory","reading and writing","fatigue","communication","coordination","sensory","information processing","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
  name: "Phone reminders",
   description: "People with organisation and time keeping or memory difficulties often use phone reminders to support 'prospective memory', i.e. remembering to do something in the future. If a placement location cannot provide an alternative reminder / alarm system, use of phone reminders for tasks to be done at set times is reasonable. If phones are not usually allowed on the ward, mobile signal and Wifi can be turned off.",
   tags: ["equipment","assistive technology","practices","memory","concentration","organisation and time keeping","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
- name: "Preferential seeting in meetings/training",
-  description: "People with auditory processing difficulties may benefit from sitting close to the speaker - e.g., at the front in training sessions or centrally during meetings - to improve clarity of sound and minimise competing noise.",
-  tags: ["practices","environment","auditory","sensory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+ name: "Preferential seating in meetings/training",
+  description: "People with auditory processing difficulties may benefit from sitting close to the speaker - e.g., at the front in training sessions or centrally during meetings - to improve clarity of sound and minimise competing noise. For people who experience tics, sitting near an exit or less visible area allows them to step out discreetly or reduce self-consciousness during tics, if that is their preference.",
+  tags: ["practices","environment","auditory","sensory","information processing","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Pre-placement visit",
   description: "A pre-placement visit gives people the chance to identify barriers that may not be obvious to supervisors, especially where the student has access needs the supervisor does not - such as noticing how a loud ward might affect someone with auditory processing difficulties. It also provides time to contact the practice learning team or arrange equipment, software, or other adjustments in advance, and serves as a practice run for the journey to reduce uncertainty or organisational difficulties on the first day.",
-  tags: ["environment","physical accessibility","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  tags: ["environment","physical accessibility","information","support","auditory","reading and writing","memory","fatigue","communication","maths and numbers","sensory","concentration","organisation and time keeping","coordination","information processing","uncertainty","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Quiet place to complete documentation",
-  description: "Offer access to a quiet, low-traffic area (e.g., side room, staff base during quieter times) for completing documentation without interruptions or background noise.",
-  tags: ["environment","auditory","reading and writing","concentration","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "Offer access to a quiet, low-traffic area (e.g., side room, staff base during quieter times) for completing documentation without interruptions or background noise, or as much need to suppress tics.",
+  tags: ["environment","auditory","reading and writing","concentration","maths and numbers","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Repeat or rephrase information",
@@ -990,13 +1711,13 @@ const adjustments = [
 },
 {
  name: "Rest breaks",
-  description: "Allowing short breaks or switching to quieter or less physical tasks - such as doing paperwork or transporting samples - can help manage fatigue, pain, or sensory sensitivity during a shift.",
-  tags: ["fatigue","sensory","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "Allowing short breaks or switching to quieter or less physical tasks (such as doing paperwork or transporting samples) can help manage fatigue, pain, sensory sensitivity, or tics during a shift.",
+  tags: ["fatigue","sensory","concentration","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Rest breaks during surgery",
   description: "Some people may struggle with bright, high-focus environments like theatres, especially during long or visually intense procedures. While learning, allow students to step out briefly if needed, and provide multiple supervised opportunities across the placement to build tolerance and familiarity.",
-  tags: ["practices","environment","fatigue","concentration","sensory","nursing","dietetics","podiatry","radiography"]
+  tags: ["practices","environment","fatigue","concentration","sensory","tics","nursing","dietetics","podiatry","radiography"]
 },
 {
  name: "Safety information in alternative format",
@@ -1005,8 +1726,8 @@ const adjustments = [
 },
 {
  name: "Soft skills support",
-  description: "Soft skills like small talk, body language, or tone of voice are rarely taught directly but are often expected in healthcare. Students with communication differences may not pick these up intuitively, especially if feedback focuses on outcomes rather than unspoken expectations (e.g., being told to 'build rapport' without being shown how). Many supervisors developed these skills unconsciously and may not find it easy to explain them to others. Support could include things like explaining when and how to use certain phrases (e.g., 'Would it be okay if I...'), modelling specific interactions (e.g., how to introduce yourself on a ward round, ways of responding to a distressed patient), or offering links to practical resources (e.g., online videos of actual patient interactions, shared with patient consent).",
-  tags: ["information","support","practices","communication","uncertainty","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  description: "Soft skills like small talk, body language, or tone of voice are rarely taught directly but are often expected in healthcare. Students with communication differences may not pick these up intuitively, especially if feedback focuses on outcomes rather than unspoken expectations (e.g., being told to 'build rapport' without being shown how). Many supervisors developed these skills unconsciously and may not find it easy to explain them to others. Support could include things like explaining when and how to use certain phrases (e.g., 'Would it be okay if I...'), modelling specific interactions (e.g., how to introduce yourself on a ward round, ways of responding to a distressed patient), offering links to practical resources (e.g., online videos of actual patient interactions, shared with patient consent), or discussing how the student can approach explaining or normalising more visible characteristics (e.g., overt tics) with patients/families and colleagues.",
+  tags: ["information","support","practices","communication","uncertainty","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Spell check software",
@@ -1016,12 +1737,12 @@ const adjustments = [
 {
  name: "Stenomask",
   description: "A stenomask allows people to use speech recognition software in noisy environments by speaking into a soundproof mask. This both reduces background interference (useful on wards or in community settings) and maintains patient confidentiality.",
-  tags: ["assistive technology","equipment","reading and writing","coordination","fatigue","nursing","paramedicine"]
+  tags: ["assistive technology","equipment","reading and writing","coordination","fatigue","tics","nursing","paramedicine"]
 },
 {
  name: "Support to prioritise tasks",
   description: "Supervisors should support people to prioritise by explaining which tasks are more urgent and why. General rules (e.g., safety tasks before paperwork) help them apply this independently in future.",
-  tags: ["support","organisation and time keeping","uncertainty","memory","information processing","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
+  tags: ["support","organisation and time keeping","uncertainty","memory","information processing","tics","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
 },
 {
  name: "Templates for documentation",
@@ -1044,6 +1765,11 @@ const adjustments = [
   tags: ["environment","information","maths and numbers","memory","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","pharmacy"]
 },
 {
+ name: "Unscheduled recovery pause",
+  description: "A short, unplanned pause taken when someone temporarily needs to step away to recover after a difficult or overwhelming moment. Most professionals do this informally - for example, taking a few minutes to make a cup of tea after breaking bad news or stepping outside for a 'fresh air break'. Some people may have stronger reactions to intense noise, emotional situations, or sudden changes, and a brief recovery period can help them return to tasks safely and effectively. These pauses do not replace or reduce standard rest breaks, which should still be taken in full. If recovery pauses become more frequent over time or do not reduce as the student settles into the placement, this may suggest that further adjustments are needed to prevent the distress so recovery is no longer necessary.",
+  tags: ["practices","auditory","fatigue","tics","uncertainty","information processing","sensory","communication","concentration","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts"]
+},
+{
  name: "Use of a calculator",
   description: "Using a calculator supports people who have difficulty with mental arithmetic, especially in high-pressure or time-limited situations.",
   tags: ["equipment","maths and numbers","nursing","dietetics","ODP","orthoptics","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","SLT","therapeutic arts","pharmacy"]
@@ -1060,8 +1786,8 @@ const adjustments = [
 },
 {
  name: "Working area with more space",
-  description: "Extra physical space helps people who need to avoid crowding, move freely, or organise their materials and equipment in a consistent way.",
-  tags: ["environment","physical accessibility","coordination","information processing","sensory","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","therapeutic arts","pharmacy"]
+  description: "Providing additional physical space allows the person to move safely and comfortably while performing tasks. It can reduce distractions, prevent accidental contact with others or equipment, and make it easier to organise materials in a consistent way.",
+  tags: ["environment","physical accessibility","coordination","information processing","sensory","tics","nursing","ODP","OT","prosthetics and orthotics","paramedicine","physiotherapy","podiatry","radiography","therapeutic arts","pharmacy"]
 },
 {
  name: "Written information / feedback",
@@ -1149,6 +1875,107 @@ function renderAdjustments() {
     });
 }
 
+// Render the custom adjustments section of the right card
+function renderCustomSection() {
+  const section = document.getElementById('custom-section');
+  const list    = document.getElementById('custom-list');
+  const countEl = document.getElementById('custom-count');
+  if (!section) return;
+
+  // Hide entirely if there are no items
+  if (customItems.length === 0) {
+    section.classList.add('hidden');
+    return;
+  }
+  section.classList.remove('hidden');
+
+  // Search affects the count (but not visibility of the section)
+  const q = (document.getElementById('adjustment-search')?.value || "").toLowerCase().trim();
+  const visible = customItems.filter(it =>
+    it.title.toLowerCase().includes(q) || (it.detail||"").toLowerCase().includes(q)
+  );
+  countEl.textContent = `(${visible.length})`;
+
+  list.style.display = customCollapsed ? 'none' : 'block';
+  list.innerHTML = '';
+
+  visible.forEach(it => {
+    const row = document.createElement('div');
+    row.className = 'custom-row';
+    row.tabIndex = 0; // so :focus-within works for keyboard users
+    row.innerHTML = `
+      <div class="row-title">${it.title}</div>
+      ${it.detail ? `<p class="row-detail">${it.detail}</p>` : ''}
+      <div class="row-actions">
+        <button type="button" aria-label="Edit ${it.title}" data-act="edit" data-id="${it.id}">Edit</button>
+        <button type="button" aria-label="Delete ${it.title}" data-act="delete" data-id="${it.id}">Delete</button>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+
+  // Attach inline action handlers
+  list.querySelectorAll('.row-actions button').forEach(btn=>{
+    const id  = btn.dataset.id;
+    const act = btn.dataset.act;
+
+    if (act === 'edit') {
+      btn.addEventListener('click', ()=>{
+        const item = customItems.find(x=>x.id===id);
+        if (!item) return;
+
+        const row = btn.closest('.custom-row');
+        row.innerHTML = `
+          <div class="inline-edit">
+            <input type="text" value="${item.title}">
+            <textarea rows="3" placeholder="Optional details">${item.detail||''}</textarea>
+            <div>
+              <button type="button" data-act="save" data-id="${id}">Save</button>
+              <button type="button" data-act="cancel" data-id="${id}">Cancel</button>
+            </div>
+          </div>
+        `;
+
+        row.querySelector('[data-act="save"]').addEventListener('click', ()=>{
+          const [titleEl, detailEl] = row.querySelectorAll('input, textarea');
+          const newTitle  = titleEl.value.trim();
+          const newDetail = detailEl.value.trim();
+          if (!newTitle) { titleEl.focus(); return; }
+          item.title  = newTitle;
+          item.detail = newDetail;
+          renderCustomSection();
+        });
+
+        row.querySelector('[data-act="cancel"]').addEventListener('click', ()=>{
+          renderCustomSection();
+        });
+      });
+    }
+
+    if (act === 'delete') {
+      btn.addEventListener('click', ()=>{
+        const item = customItems.find(x=>x.id===id);
+        const row  = btn.closest('.custom-row');
+        row.innerHTML = `
+          <div class="inline-confirm" role="alert">
+            <span>Delete this custom adjustment?</span>
+            <button class="danger" type="button" data-act="confirm-del" data-id="${id}">Delete</button>
+            <button type="button" data-act="cancel-del" data-id="${id}" autofocus>Cancel</button>
+          </div>
+        `;
+        // Focus goes to Cancel by default (autofocus)
+        row.querySelector('[data-act="confirm-del"]').addEventListener('click', ()=>{
+          customItems = customItems.filter(x=>x.id!==id);
+          renderCustomSection();
+        });
+        row.querySelector('[data-act="cancel-del"]').addEventListener('click', ()=>{
+          renderCustomSection();
+        });
+      });
+    }
+  });
+}
+
 // Fuzzy search for adjustments
 function setupSearch() {
   const input = document.getElementById('adjustment-search');
@@ -1164,6 +1991,7 @@ function setupSearch() {
       const match = name.includes(query) || desc.includes(query);
       box.style.display = match ? "block" : "none";
     });
+    renderCustomSection();
   });
 }
 
@@ -1394,6 +2222,33 @@ function setupToggleAllButton() {
         });
     }
 
+  // Toggle custom adjustments collapse/expand
+    document.getElementById('custom-toggle').addEventListener('click', ()=>{
+      customCollapsed = !customCollapsed;
+      const btn = document.getElementById('custom-toggle');
+      btn.setAttribute('aria-expanded', String(!customCollapsed));
+      btn.querySelector('.chev').textContent = customCollapsed ? '▸' : '▾';
+      renderCustomSection();
+    });
+
+    // Add custom adjustments from modal
+    document.getElementById('custom-add-btn').addEventListener('click', ()=>{
+      const t = document.getElementById('custom-title-input');
+      const d = document.getElementById('custom-detail-input');
+      const title = t.value.trim();
+      const detail = d.value.trim();
+      if (!title) { t.focus(); return; }
+
+      customItems.unshift({ id: uid(), title, detail });
+      t.value = ''; d.value = '';
+      closeModal('custom-modal');
+
+      // Section appears (expanded by default) and shows the new item
+      customCollapsed = false;
+      renderCustomSection();
+    });
+
+
   // 'Where to start' quiz
 
     function toggleQuiz() {
@@ -1505,8 +2360,8 @@ function setupToggleAllButton() {
         }
 
         const saveData = JSON.stringify({
-            adjustments: selectedAdjustmentsState,
-            custom: custom
+          adjustments: selectedAdjustmentsState,
+          custom: customItems
         }, null, 2);
 
         const blob = new Blob([saveData], { type: "text/plain" });
@@ -1553,36 +2408,13 @@ function setupToggleAllButton() {
     }
 
   // Restore custom adjustments
-    const container = document.getElementById('custom-support-container');
-    container.innerHTML = ""; // clear old ones
+    customItems = Array.isArray(data.custom) ? data.custom.map(c => ({
+      id: c.id || uid(),
+      title: c.title || c.head || "",
+      detail: c.detail || ""
+    })).filter(x => x.title.trim() !== "") : [];
 
-    const custom = data.custom || [];
-    custom.forEach(entry => {
-        const wrapper = document.createElement('div');
-        wrapper.style.marginBottom = "1em";
-
-        const input = document.createElement('input');
-        input.type = "text";
-        input.placeholder = "e.g., Quiet workspace";
-        input.className = "custom-support";
-        input.value = entry.head || "";
-
-        const textarea = document.createElement('textarea');
-        textarea.rows = 3;
-        textarea.cols = 50;
-        textarea.placeholder = "Additional details...";
-        textarea.className = "custom-details";
-        textarea.value = entry.detail || "";
-
-        wrapper.appendChild(document.createTextNode("Custom adjustment: "));
-        wrapper.appendChild(input);
-        wrapper.appendChild(document.createElement("br"));
-        wrapper.appendChild(document.createTextNode("Details: "));
-        wrapper.appendChild(textarea);
-
-        container.appendChild(wrapper);
-    });
-
+    renderCustomSection();
     renderAdjustments();
     }
 
@@ -1618,7 +2450,7 @@ function setupToggleAllButton() {
         assess_plan: ["Support to prioritise tasks"],
         assess_timing: ["Visible clocks (analogue / digital)"],
 
-        focus_noise: ["Earplugs", "Advance warning for loud noises"],
+        focus_noise: ["Earplugs", "No (or warning for) loud noises"],
         focus_switching: ["Support to prioritise tasks"],
         focus_repetitive: ["Movement breaks"],
         focus_screen: ["Anti-glare screens"],
@@ -1682,12 +2514,77 @@ function setupToggleAllButton() {
         openModal('recommendations-modal');
     }
 
+  // === Top card link behaviours (reuse your existing functions) ===
+    document.getElementById('link-quiz').addEventListener('click', (e)=>{ e.preventDefault(); openModal('quiz-modal'); });
+
+    // Open custom adjustments modal
+    document.getElementById('link-custom').addEventListener('click', (e)=>{
+      e.preventDefault();
+      openModal('custom-modal');
+      document.getElementById('custom-title-input').focus();
+    });
+
+    document.getElementById('link-save-pdf').addEventListener('click', (e)=>{ e.preventDefault(); saveSummary(); });
+    document.getElementById('link-save-file').addEventListener('click', (e)=>{ e.preventDefault(); saveToFile(); });
+    document.getElementById('link-load-file').addEventListener('click', (e)=>{ 
+        e.preventDefault();
+      const input = document.getElementById('load-file');
+      if(input) input.click();
+    });
+
+// Self-contained load-from-file logic
+(() => {
+  const fileInput = document.getElementById('arcc-file-loader');
+  const loadLink = document.getElementById('link-load-file');
+
+  if (!fileInput || !loadLink) return; // safety guard
+
+  // When the user clicks "Load from file"
+  loadLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    fileInput.value = ''; // reset so same file can be chosen again
+    fileInput.click();
+  });
+
+  // When a file is chosen
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (typeof loadDataToState === 'function') {
+          loadDataToState(data); // reuse your existing restore logic
+        } else {
+          alert('loadDataToState() not found.');
+        }
+      } catch {
+        alert('That file could not be read as valid ARCC data.');
+      }
+    };
+    reader.readAsText(file);
+  });
+})();
+
+    document.getElementById('link-experience')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.open('https://forms.gle/9fDUYGoPfQEC6K4M6', '_blank');
+    });
+
+    document.getElementById('link-SSHINE')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.open('https://sshinestudents.wordpress.com/', '_blank');
+    });
+
 
 
   // 🚀 Initialise
 
   setupFilters();
   renderAdjustments();
+  renderCustomSection();
   setupToggleAllButton();
   setupFilterToggles();
   setupSearch();
@@ -1701,6 +2598,442 @@ function setupToggleAllButton() {
       </a> — you may share and adapt it, but not use it commercially.
     </p>
   </footer>
+
+<script>
+(function () {
+  const btn = document.getElementById('filtersToggle');
+  const panel = document.querySelector('.left-column');
+  const backdrop = document.querySelector('.filters-backdrop');
+
+  if (!btn || !panel || !backdrop) return;
+
+  function setOpen(open) {
+    document.body.classList.toggle('filters-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    backdrop.hidden = !open;
+    if (open) {
+      // focus the first focusable element in the panel
+      const focusable = panel.querySelector('button, input, select, textarea, a, [tabindex]');
+      if (focusable) focusable.focus();
+    }
+  }
+
+  // click button to toggle
+  btn.addEventListener('click', () =>
+    setOpen(!document.body.classList.contains('filters-open'))
+  );
+
+  // click backdrop to close
+  backdrop.addEventListener('click', () => setOpen(false));
+
+  // press Escape to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+})();
+</script>
+
+<script>
+    // === SETTINGS MODAL FUNCTIONALITY ===
+
+    // --- Modal open/close ---
+    const settingsToggle = document.getElementById("settingsToggle");
+    const settingsModal = document.getElementById("settingsModal");
+    const closeSettings = document.getElementById("closeSettings");
+    const resetSettings = document.getElementById("resetSettings");
+
+    settingsToggle?.addEventListener("click", () => {
+    settingsModal.classList.toggle("hidden");
+    });
+
+    closeSettings?.addEventListener("click", () => {
+    settingsModal.classList.add("hidden");
+    });
+
+    // --- Toggles and selects ---
+    const themeSelect = document.getElementById("themeSelect");
+    const fontSizeSelect = document.getElementById("fontSizeSelect");
+    const toggleFocus = document.getElementById("toggleFocus");
+    const toggleClickable = document.getElementById("toggleClickable");
+
+    // --- Load saved settings ---
+    const savedSettings = JSON.parse(localStorage.getItem("arccSettings")) || {};
+    applySettings(savedSettings);
+
+// --- Sync dropdown UI with stored theme on page load ---
+if (savedSettings.theme) {
+  const themeSelect = document.getElementById("themeSelect");
+  if (themeSelect) themeSelect.value = savedSettings.theme;
+}
+
+    // --- Handle toggle buttons ---
+    function setupToggle(button, settingKey) {
+    button.addEventListener("click", () => {
+        button.classList.toggle("on");
+        const isOn = button.classList.contains("on");
+        button.textContent = isOn ? "On" : "Off";
+        savedSettings[settingKey] = isOn;
+        applySettings(savedSettings);
+        saveSettings();
+    });
+    }
+
+    // --- Handle dropdowns ---
+    themeSelect.addEventListener("change", () => {
+    savedSettings.theme = themeSelect.value;
+    applySettings(savedSettings);
+    saveSettings();
+    });
+
+    fontSizeSelect.addEventListener("change", () => {
+    savedSettings.fontSize = fontSizeSelect.value;
+    applySettings(savedSettings);
+    saveSettings();
+    });
+
+    // --- Save settings to localStorage ---
+    function saveSettings() {
+    localStorage.setItem("arccSettings", JSON.stringify(savedSettings));
+    }
+
+    // --- Reset button ---
+    resetSettings?.addEventListener("click", () => {
+    localStorage.removeItem("arccSettings");
+    location.reload();
+    });
+    
+    // --- Apply settings to the page ---
+    function applySettings(settings) {
+    // Font size
+    document.body.style.fontSize =
+        settings.fontSize === "large"
+        ? "18px"
+        : settings.fontSize === "xlarge"
+        ? "20px"
+        : "16px";
+
+    // === Theme handling ===
+    const cards = document.querySelectorAll(
+    ".filters-side, .adjustments-side, .tool-card, .modal-content"
+    );
+    const textElements = document.querySelectorAll(
+    ".tool-card h4, .tool-link, h2, h3, p, li, label, .adjustment-description"
+    );
+
+// --- Reset inline styles from any previous theme ---
+document.querySelectorAll(
+  ".adjustment-box, .filter-checkbox, .tool-link, button, input, select, textarea"
+).forEach(el => {
+  el.style.background = "";
+  el.style.color = "";
+  el.style.border = "";
+  el.style.boxShadow = "";
+  el.style.outline = "";
+  el.style.outlineOffset = "";
+});    
+
+// --- Extra reset for card borders from high-contrast mode ---
+document.querySelectorAll(
+  ".filters-side, .adjustments-side, .tool-card, .modal-content"
+).forEach(card => {
+  card.style.border = "";
+  card.style.boxShadow = "";
+});
+
+    if (settings.theme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    document.documentElement.style.background = "#1a1a1a";
+    document.body.style.background = "#1a1a1a";
+    document.body.style.color = "#f5f5f5";
+
+    cards.forEach(card => {
+        card.style.background = "#2b2b2b";
+        card.style.color = "#f5f5f5";
+    });
+    textElements.forEach(t => (t.style.color = "#f5f5f5"));
+    } else if (settings.theme === "highContrast") {
+    // Background and base text
+    document.documentElement.setAttribute("data-theme", "highContrast");
+    document.documentElement.style.background = "#000";
+    document.body.style.background = "#000";
+    document.body.style.color = "#FFD700"; // bright yellow text
+
+    // Card backgrounds (stay black with yellow text)
+    cards.forEach(card => {
+        card.style.background = "#000";
+        card.style.color = "#FFD700";
+        card.style.border = "1px solid #FFD700";
+    });
+
+    // Text content and headers
+    textElements.forEach(t => (t.style.color = "#FFD700"));
+
+    // Links
+    document.querySelectorAll("a, .tool-link").forEach(link => {
+        link.style.color = "#00FFFF"; // cyan
+        link.style.textDecoration = "underline";
+    });
+
+    // Inputs, selects, buttons
+    document.querySelectorAll("input, select, textarea, button").forEach(el => {
+        el.style.background = "#fff";
+        el.style.color = "#000";
+        el.style.border = "2px solid #FFD700";
+    });
+    
+// Hover & focus effects for high contrast mode
+document.querySelectorAll(
+  ".adjustment-box:hover, .filter-checkbox:hover, .tool-link:hover"
+).forEach(el => {
+  el.style.background = "#222"; // dark grey hover
+  el.style.color = "#FFD700";
+});
+
+document.querySelectorAll(
+  ".adjustment-box:focus-within, .filter-checkbox:focus, .tool-link:focus-visible"
+).forEach(el => {
+  el.style.outline = "2px solid #00FFFF"; // cyan focus outline
+  el.style.outlineOffset = "2px";
+});
+
+const interactiveEls = document.querySelectorAll(
+  ".adjustment-box, .filter-checkbox, .tool-link"
+);
+
+interactiveEls.forEach(el => {
+    el.addEventListener("mouseenter", () => {
+        if (settings.theme === "highContrast") {
+        el.style.background = "#FFD700"; // bright yellow
+        el.style.color = "#000";         // black text
+        }
+    });
+    el.addEventListener("mouseleave", () => {
+    if (settings.theme === "highContrast") {
+        el.style.background = "#000";
+        // restore original colour based on element type
+        if (el.classList.contains("tool-link")) {
+        el.style.color = "#00FFFF"; // cyan for links
+        } else {
+        el.style.color = "#FFD700"; // yellow for other items
+        }
+    }
+    });
+    el.addEventListener("focus", () => {
+        if (settings.theme === "highContrast") {
+        el.style.outline = "2px solid #00FFFF"; // cyan ring
+        el.style.outlineOffset = "2px";
+    }
+    });
+    el.addEventListener("blur", () => {
+        if (settings.theme === "highContrast") {
+        el.style.outline = "none";
+    }
+    });
+});
+
+    } else {
+    document.documentElement.setAttribute("data-theme", "default");
+    document.documentElement.style.background = "#f3f3f4";
+    document.body.style.background = "#f3f3f4";
+    document.body.style.color = "#222";
+
+    cards.forEach(card => {
+        card.style.background = "#fff";
+        card.style.color = "#222";
+    });
+    textElements.forEach(t => (t.style.color = "#222"));
+    }
+
+    // Focus mode
+    if (settings.focusMode) {
+        document.body.classList.add("focus-mode");
+    } else {
+        document.body.classList.remove("focus-mode");
+    }
+
+    // === Focus Mode Tracking ===
+    let focusBar = document.getElementById("focus-bar");
+    if (!focusBar) {
+    focusBar = document.createElement("div");
+    focusBar.id = "focus-bar";
+    document.body.prepend(focusBar);
+    }
+
+    document.addEventListener("mousemove", (e) => {
+    if (document.body.classList.contains("focus-mode")) {
+        const barHeight = 80; // same as CSS
+        const top = Math.max(0, e.clientY - barHeight / 2);
+        focusBar.style.top = `${top}px`;
+    }
+    });
+
+    // Optional: also track keyboard focus for accessibility
+    document.addEventListener("focusin", (e) => {
+    if (document.body.classList.contains("focus-mode")) {
+        const rect = e.target.getBoundingClientRect?.();
+        if (rect) {
+        const top = rect.top + rect.height / 2 - 40; // centre bar on element
+        focusBar.style.top = `${Math.max(0, top)}px`;
+        }
+    }
+    });
+
+    // Highlight clickable elements (solid orange outline)
+    const clickable = document.querySelectorAll(
+    "button, a, input, select, .adjustment-box, .filter-checkbox"
+    );
+    clickable.forEach(el => {
+    if (settings.highlightClickable) {
+        el.style.outline = "2px solid #FF8800"; // solid orange
+        el.style.outlineOffset = "2px";
+    } else {
+        el.style.outline = "";
+        el.style.outlineOffset = "";
+    }
+    });
+    }
+
+    // --- Initialize toggles based on saved settings ---
+    setupToggle(toggleFocus, "focusMode");
+    setupToggle(toggleClickable, "highlightClickable");
+
+    // --- Reapply text labels for toggles ---
+    [toggleFocus, toggleClickable].forEach(btn => {
+    const key =
+        btn === toggleFocus
+        ? "focusMode"
+        : "highlightClickable";
+    if (savedSettings[key]) {
+        btn.classList.add("on");
+        btn.textContent = "On";
+    }
+    });
+</script>
+
+<script>
+    (() => {
+    let currentStep = 0;
+    let overlay, tooltip;
+
+    // === Tutorial steps (your original text) ===
+    const steps = [
+        { selector: '.filters-side', text: 'These are your filters. Use them to include or exclude different types of adjustments or challenges.', top: 250, left: 400 },
+        { selector: '.adjustments-side', text: 'Here you’ll see all the suggested adjustments that match your filters.', top: 250, left: 900 },
+        { selector: '#custom-card', text: 'Use “Add custom adjustments” to include your own ideas or notes.', top: 260, left: 300 },
+        { selector: '#adjustment-search', text: 'Search for a specific adjustment here.', top: 300, left: 850 },
+        { selector: '#save-card', text: 'You can save your selected adjustments to PDF or file, and give feedback using the survey links.', top: 310, left: 450 },
+        { undim: true, text: '(And you can change accessibility settings by clicking on this cog icon!) ⚙️', top: 500, left: 1250 }
+    ];
+
+    function startTutorial() {
+        currentStep = 0;
+        showStep();
+    }
+
+    function showStep() {
+        const step = steps[currentStep];
+        if (!step) return endTutorial();
+
+        // Remove old highlights/tooltips
+        document.querySelectorAll('.tutorial-highlight').forEach(el => el.classList.remove('tutorial-highlight'));
+        if (tooltip) tooltip.remove();
+
+        const target = step.selector ? document.querySelector(step.selector) : null;
+
+        // Only skip steps if they have a selector but nothing was found
+        if (!target && !step.undim) return nextStep();
+
+        // Highlight element only if there’s a valid target and step isn’t undim
+        if (target && !step.undim) {
+        target.classList.add('tutorial-highlight');
+        }
+
+        // Create overlay if not present
+        if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'tutorial-overlay';
+        document.body.appendChild(overlay);
+        }
+
+        // Toggle dimming based on step
+        if (step.undim) {
+        overlay.style.display = 'none'; // hide dim overlay
+        } else {
+        overlay.style.display = 'block'; // show normally
+        }
+
+        // Tooltip
+        tooltip = document.createElement('div');
+        tooltip.className = 'tutorial-tooltip';
+        tooltip.innerHTML = `
+        <p>${step.text}</p>
+        <div class="tutorial-buttons">
+            <button class="skip">Exit tutorial</button>
+            <button class="next">${currentStep === steps.length - 1 ? 'Finish' : 'Next'}</button>
+        </div>
+        `;
+        document.body.appendChild(tooltip);
+
+        // === Fixed positioning ===
+        tooltip.style.top = `${step.top}px`;
+        tooltip.style.left = `${step.left}px`;
+
+        // Button events
+        tooltip.querySelector('.next').addEventListener('click', nextStep);
+        tooltip.querySelector('.skip').addEventListener('click', endTutorial);
+
+        // Automatically focus the "Next" button for keyboard users
+        tooltip.querySelector('.next').focus();
+
+        // Allow arrow keys to move between buttons
+        const buttons = tooltip.querySelectorAll('.tutorial-buttons button');
+        let focusedIndex = 0;
+
+        tooltip.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            focusedIndex = (focusedIndex + 1) % buttons.length;
+            buttons[focusedIndex].focus();
+            e.preventDefault();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            focusedIndex = (focusedIndex - 1 + buttons.length) % buttons.length;
+            buttons[focusedIndex].focus();
+            e.preventDefault();
+        }
+        });
+    }
+
+    function nextStep() {
+        currentStep++;
+        if (currentStep >= steps.length) {
+        endTutorial();
+        } else {
+        showStep();
+        }
+    }
+
+    function endTutorial() {
+        overlay?.remove();
+        tooltip?.remove();
+        document.querySelectorAll('.tutorial-highlight').forEach(el => el.classList.remove('tutorial-highlight'));
+        overlay = tooltip = null;
+    }
+
+    // Allow closing the tutorial with the Escape key
+    document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        endTutorial();
+    }
+    });
+
+    // Launch tutorial
+    document.getElementById('link-tutorial')?.addEventListener('click', e => {
+        e.preventDefault();
+        startTutorial();
+    });
+    })();
+</script>
+
+<input type="file" id="load-file" accept=".txt,.json" style="display:none">
 
 </body>
 </html>
